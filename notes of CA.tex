@@ -1,0 +1,1461 @@
+%!Mode::"TeX:UTF-8"
+\documentclass[cs4size]{article}
+
+\usepackage{amsthm}
+\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz-cd}
+\usepackage{mathtools}
+\usepackage[top=2.54cm, bottom=2.54cm, left=3.18cm, right=3.18cm]{
+geometry}
+\newcommand{\noi}{\noindent}
+\newcommand{\de}{\backslash}
+\newcommand{\buu}{\biggerundertilde}
+\newcommand{\ti}{\widetilde}
+\newcommand{\su}{\subseteq}
+\newcommand{\s}{\preceq}
+\newcommand{\inv}{^{-1}}
+\newcommand{\rk}{rank}
+\newcommand{\cat}{\mathcal{T}}
+\newcommand{\caJ}{\mathcal{J}}
+\newcommand{\frm}{\mathfrak{m}}
+\newcommand{\frp}{\mathfrak{p}}
+\newcommand{\frq}{\mathfrak{q}}
+\newcommand{\frn}{\mathfrak{n}}
+\newcommand{\bb}{\mathbb}
+\newcommand{\la}{\leftarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\xr}{\xrightarrow}
+\newcommand{\ca}{\mathcal}
+\newcommand{\cai}{\mathcal{I}}
+\newcommand{\cav}{\mathcal{V}}
+\newcommand{\cao}{\mathcal{O}}
+\newcommand{\cas}{\mathcal{S}}
+\newcommand{\Ra}{\Rightarrow}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Der}{Der}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\divi}{div}
+\DeclareMathOperator{\Fr}{Fr}
+\DeclareMathOperator{\chara}{char}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Coker}{Coker}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\Ass}{Ass}
+\DeclareMathOperator{\height}{ht}
+\DeclareMathOperator{\depth}{depth}
+\DeclareMathOperator{\pdim}{pdim}
+\DeclareMathOperator{\trdeg}{tr.deg}
+
+\newcommand{\pf}{\noindent {\bf Proof.} }
+\newtheorem{thm}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lem}{Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{cor}{Corollary}
+\newtheorem{ex}{Example}
+
+
+
+\begin{document}
+
+
+\title{Notes of Commutative Algebra}
+\author{Hao Zhang \footnote{The corresponding author. E-mail address:
+zhanghaomath@163.com. }}
+\date{}
+
+\maketitle
+
+\section{Dimension Theory}
+\begin{thm}
+$\dim A=\text{ smallest integer } d \text {such that }\exists x_1,\cdots,x_d\in \frm \text{ with } \frm^v\su(x_1,\cdots,x_d)\su\frm$ for some $v\geq 1$. $\Leftrightarrow l_A(A/(x_1,\cdots,x_d))<\infty$.
+\end{thm}
+In this case, We say that $\{x_1,\cdots,x_d\}$ is a system of parameter of $A$.
+
+\begin{definition}
+The Noetherian local ring $(A,\frm)$ is regular if $\{x_1,\cdots,x_d\}$ with $d=\dim A$ and $\frm=(x_1,\cdots,x_d)$.
+\end{definition}
+$A$ is regular if and only if $\dim A=\dim_R\frm/\frm^2$.
+
+For any ideal $I$, $\text{ht } I:=\inf\{\text{ht }(\frp)|I\su\frp, \text{ where }\frp \text{ is prime ideal }\}$. If $A$ is Noetherian ring, $I=(x_1,\cdots,x_r)$, then $\text{ht } I\leq r$.
+\begin{proof}
+\begin{align*}
+&I\su \frp \text{ (minimal prime) } \\
+\Rightarrow& IA_\frp\su\frp A_\frp\su A_\frp\\
+\Rightarrow&\frp A_\frp \text{ is the only prime ideal containing }IA_\frp\\
+\Rightarrow&A_\frp/IA_\frp\supseteq\frp/I A_\frp \text{ (unique maximal ideal / prime ideal )}\\
+\Rightarrow&A_\frp/IA_\frp \text{ is Artinian local }\\
+\Rightarrow&l(A_\frp/IA_\frp)<\infty\\
+\Rightarrow&\dim A_\frp\leq r\\
+\Rightarrow&\text{ht }(\frp)=\dim(A_\frp)\leq r.
+\end{align*}
+\end{proof}
+
+\begin{lem}
+$R$ is a Noetherian ring, $\M$ maximal ideal of $R$, $A=R_M$, $\frm=MR_M$ maximal ideal of $A$. Then for any $i\geq 0$, we have an isomorphism $M^i/M^{i+1}\cong \frm^i/\frm^{i+1}$.
+\end{lem}
+\begin{proof}
+Observe that $\text{Supp } (M^i/M^{i+1})=\{M\}\su \Spec(R)$. If $N$ is a finitely generated $A$-module, supported at $M$. Then $N_M=N\otimes_RR_M$.
+\end{proof}
+\begin{ex}
+$R=\bb{Z}[x,y]/(xy-p)\supseteq M=(\bar{x},\bar{y})$, $A=R_M$, $\frm=MR_M$. Then $A/\frm\cong R/M\cong \bb{Z}/(xy-p,x,y)\cong \bb{F}_p$. \[\frm/\frm^2\cong M/M^2\cong \frac{xR+yR}{(xR+yR)^2}\cong \frac{x\bb{Z}[x,y]+y\bb{Z}[x,y]}{(xy-p,x^2,y^2,xy)\bb{Z}[x,y]}\cong x\bb{F}+y\bb{F}\]
+$\Rightarrow$ $\dim_{\bb{F}_p}\frm/\frm^2=2$. Hence $\dim A\leq 2$. On the other hand, we have $(xy-p)\su (x,p)\su (x,y,p)\su\bb{Z}[x,y]$. Since $\bb{Z}[x,y]/(x,p)\cong \bb{F}_p[y]$, $\bb{Z}[x,y]/(x,y,p)\cong \bb{F}_p$ are integral domain, $(x,p),(x,y,p)$ are prime ideal. This implies that $\dim A=2$. Hence $A$ is regular.
+\end{ex}
+
+\begin{ex}
+$R=\bb{Z}[x,y]/(xy-p^2)\supseteq M=(x,y,p)$ the maximal ideal. $A=R_M\supseteq \frm=MR_M$.
+\[\frm/\frm^2=\frac{x\bb{Z}[x,y]+y\bb{Z}[x,y]+p\bb{Z}[x,y]}{(xy-p^2,x^2,y^2,xy,px,py,p^2)}\cong \bb{F}_p+x\bb{F}_p+y\bb{F}_p.\]
+So $\dim_{\bb{F}_p}\frm/\frm^2=3.$ However $(x,y,p)^2\su(x,y)\su(x,y,p)=M$, $\dim A=2<3$. This shows that $A$ is not regular.
+\end{ex}
+
+\section{Regular Sequence}
+\begin{definition}
+Let $A$ be a ring, $M$ be an $A$-module. We say that $a_1,\cdots,a_n\in A$ is an $M$-regular sequence if
+\begin{itemize}
+\item $M\neq (a_1,\cdots,a_n)M$
+\item for all $i$, $1\leq i\leq n$, $a_i$ is not a zero divisor in $M/(a_1,\cdots,a_i)M$.
+\end{itemize}
+\end{definition}
+\begin{ex}
+$M=A=k[x,y,z]$, where $k$ is a field. $a_1=xy-x$, $a_2=y$, $a_3=yz-z$ is a regular sequence, but $xy-x,zy-z,y$ is not a regular sequence.
+\end{ex}
+
+\begin{thm}
+$(A,\frm)$ Noetherian local ring, $k=A/\frm$, $d=\dim A$. TFAE:
+\begin{itemize}
+\item $A$ is regular.
+\item $\frm$ is generated by a regular sequence $x_1,\cdots,x_d\in\frm$.
+\item The residue field $k$ has a finite free resolution as an $A$-module.
+\item Every finitely generated $A$-module has a finite free resolution.
+\end{itemize}
+\end{thm}
+
+\begin{ex}
+$R=k[x,y],M=k=R/(x,y)$.
+\[0\ra k[x,y]\ra k[x,y]\oplus k[x,y]\ra k[x,y]\ra k\ra 0.\]
+\end{ex}
+
+\subsection{Koszul complex}
+$R$ is a ring, $I=(x_1,\cdots,x_n)$, where $(x_1,\cdots,x_n)$ is a regular sequence in $R$, then the Koszul complex gives a finite free resolution of the $R$-module $M=R/I$.
+
+\textbf{Complex:} $C_i$ are $R$-modules which satisfy the condition:
+\[\cdots\ra C_{i+1}\xr{d_{i+1}} C_i\xr{d_i} C_{i-1}\ra\cdots\]
+where $d_i\circ d_{i+1}=0$ for all $i$.
+
+\textbf{Tensor product of complex:} $(C_{\cdot}\otimes C_{\cdot}')_n:=\oplus_{i+j=n}C_i\otimes C_j'$, the map $d: (C_{\cdot}\otimes C_{\cdot}')_n\ra (C_{\cdot}\otimes C_{\cdot}')_{n-1}$ is defined by
+\begin{align*}
+d: C_i\otimes C_j'& \ra (C_{i-1}\otimes C_j')\oplus(C_i\otimes C_{j-1}')\\
+x\otimes y&\mapsto \big(d_i(x)\otimes y,(-1)^ix\otimes d_j(y)\big)
+\end{align*}
+
+Let $R$ be a ring, $x_1,\cdots, x_n$ a sequence in $R$. Next, we construct a complex $K(x_1,\cdots,x_n;R)$ by induction as follows.
+
+$n=1$, $x=x_1$. $K(x;R):=(\cdots\ra 0\ra R\xr{x}R\ra 0\ra\cdots).$ where the place 0 and 1 is not zero in this sequence. Then assuming that $K(x_1,\cdots,x_{n-1};R)$ has been defined. Set $K(x_1,\cdots,x_n;R):=K(x_1,\cdots,x_{n-1};R)\otimes K(x_n;R)$.
+
+Suppose $C_\bullet$ is any complex, $x\in R$. Set $C_\bullet(x)=C_\bullet\otimes K(x;R)$. Then $(C_\bullet(x))_n=\oplus_{n=i+j}(C_i\otimes K(x;R)_j=(C_n\otimes R_0))\oplus (C_{n-1}\otimes R_1)\cong C_{n-1}\oplus C_n$. The map $d_n(x)$ from $C_{n-1}\oplus C_n$ to $C_{n-2}\oplus C_{n-1}$ is defined by :
+\begin{align*}
+C_{n-1}&\ra C_{n-2}\oplus C_{n-1}\\
+a&\mapsto (d_{n-1}(a),(-1)^{n-1}a)\\
+C_n&\ra C_{n-1}\oplus C_{n-1}\\
+b&\mapsto (0,d_n(b))
+\end{align*}
+We have an exact sequence of complexes:
+\[0\ra C_\bullet \ra C_\bullet(x) \ra C_{\bullet -1}\ra 0\]
+given by \[0\ra C_n\xr{f_n} C_{n-1}\oplus C_n\xr{g_n} C_{n-1}\ra 0\]
+where $f_n(a)=(0,a)$ and $g_n((b,a))=(-1)^{n-1}b$. This gives a long exact sequence \[0\ra H_{n+1}(C_{\bullet -1})\ra H_n(C_\bullet )\ra H_n(C_\bullet(x))\ra H_{n}(C_{\bullet -1})\ra H_{n-1}(C_\bullet )\ra H_{n-1}(C_\bullet(x))\]
+$\Ra$
+\begin{equation}
+0\ra H_n(C_\bullet)/xH_n(C_\bullet)\ra H_n(C_\bullet(x))\ra \Ann(H_{n-1}(C_\bullet): x)\ra 0. \label{eq:A}
+\end{equation}
+
+\textbf{Koszul Complex:} Let $x_1,\cdots,x_d\in R$, $M$ an $R$-module. $K(x_1,\cdots,x_d;M)=K(x_1,\cdots,x_{d-1};M)\otimes_RM=K(x_1,\cdots,x_d;R)\otimes_RM$.
+
+\begin{thm}
+\begin{itemize}
+\item $H_0(K(x_1,\cdots,x_d,M))=M/(x_1,\cdots,x_d)M.$
+\item If $x_1,\cdots,x_d$ is an $M$-regular sequence, then $H_n(K(x_1,\cdots,x_d;M))=0$ for all $n\geq 1$.
+\item If $R$ is a Noetherian local ring, $M$ a finitely generated $R$-module and $x_1,\cdots,x_d\in\frm$. Then if $H_n(K(x_1,\cdots,x_d;M))=0$ for all $n\leq1$ $\Ra$ $x_1,\cdots,x_d$ ia an $M$-regular sequence.
+\end{itemize}
+\end{thm}
+\begin{proof}
+1). Induction on $d$.
+
+When $d=1$. $K_0(x;M)=(R\xr{x}R)\otimes_RM=M\xr{x}M$ $\Ra$ $H_0(K_\bullet(x;M))=M/xM$.
+
+When $d>1$. Applying $(\ref{eq:A})$, we have
+\begin{equation}
+\begin{split}
+0&\ra H_n(K(x_1,\cdots,x_{d-1};M))/x_dH_n(K(x_1,\cdots,x_{d-1};M))\ra H_n(K(x_1,\cdots,x_d;M))\\
+&\ra \ker \big(H_{n-1}(K(x_1,\cdots,x_{d-1};M))\xr{x_d}(K(x_1,\cdots,x_{d-1};M))\big)\ra 0.\label{eq:B}
+\end{split}
+\end{equation}
+ Apply this formula for $n=0$ $(H_{-1}=0)$. We have that
+\[H_0(K(x_1,\cdots,x_d;M))\cong H_0(K(x_1,\cdots,x_{d-1};M))/x_dH_0(K(x_1,\cdots,x_{d-1};M))\cong M/(x_1,\cdots,x_d)M.\]
+
+2).Induction on $d$.
+
+When $d=1$. For all $n\geq 2$, $H_n(K(x_1;M))=0$ by definition. If $n=1$, then $H_1=\ker(M\xr{x} M)=0$ since $x$ is regular.
+
+When $d>1$. Apply $(\ref{eq:B})$. If $n\geq 2$, then by induction hypothesis, we have
+\[\ker \big(H_{n-1}(K(x_1,\cdots,x_{d-1};M))\xr{x_d}(K(x_1,\cdots,x_{d-1};M))\big)=0\] and
+\[H_n(K(x_1,\cdots,x_{d-1};M))/x_dH_n(K(x_1,\cdots,x_{d-1};M))=0.\]
+So $H_n=0$.
+If $n=1$,
+\begin{align*}
+H_1(K(x_1,\cdots,x_d;M))=&\ker \big(H_{n-1}(K(x_1,\cdots,x_{d-1};M))\xr{x_d}(K(x_1,\cdots,x_{d-1};M))\big)\\
+=&\ker \big(M/(x_1,\cdots,x_{d-1})M\xr{x_d}M/(x_1,\cdots,x_{d-1}M)\big)=0
+\end{align*}
+since $x_d$ is regular in $M/(x_1,\cdots,x_{d-1}M)$.
+
+3)If $H_n(K(x_1,\cdots,x_d;M))=0$ for all $n\geq 1$. Then by $(ref{eq:B})$, we have
+\begin{equation}
+H_n(K(x_1,\cdots,x_{d-1};M))/x_dH_n(K(x_1,\cdots,x_{d-1};M))=0.\label{eq:C}
+\end{equation}
+and
+\begin{equation}\label{eq:D}
+\ker (H_{n-1}(K(x_1,\cdots,x_{d-1};M))\xr{x_d}(K(x_1,\cdots,x_{d-1};M)))=0.
+\end{equation}
+Formula $(\ref{eq:C})$ together with part 1) gives that $x_d$ is not a zero divisor in $M/(x_1,\cdots,x_{d-1})M$. By $(\ref{eq:D})$, set $N=H_{n-1}(K(x_1,\cdots,x_{d-1};M))$, then $N/x_dN=0$ where $x_d\in \frm$. This implies that $N=\frm N$. Hence $N=0$ by NAK. Hence by induction, we get that $x_1,\cdots,x_d$ is an $M$-regular sequence.
+\end{proof}
+
+$R$ is a Noetherian ring. $M,N$ are finitely generated $R$-modules, $\phi: R\ra S$ a flat ring homomorphism. Then there exists a natural isomorphism $\Ext_R^i(M,N)\otimes_RS\cong \Ext_S^i(M\otimes_RS,N\otimes_RS)$. (need finitely generated for $\Hom_R^i(M,N)\otimes_RS\cong \Hom_S^i(M\otimes_RS,N\otimes_RS)$)
+
+Now suppose that $(R,\frm)$ is a Noetherian local ring and $k=R/\frm$. \begin{prop}
+$M$ is a finitely generated $R$-module. TFAE:
+\begin{enumerate}
+\item $M$ has a finite projective resolution of length $m$, i.e. $\cdots \ra 0\ra P_m\ra\cdots\ra P_1\ra P_0\ra M\ra 0$ where $P_i$ are finitely generated projective $R$-module.
+\item $M$ has a finite free resolution of length $m$.
+\item $\Tor_i^R(M,N)=0$ for all $i>m$ and all $R$-modules $N$.
+\item $\Ext_R^i(M,N)=0$ for all $i>m$ and all $R$-modules $N$.
+\item $\Tor_i^R(M,k)=0$ for all $i>m$.
+\item $\Ext_i^R(M,k)=0$ for all $i>m$.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+Basic ingredients:
+$(R,\frm)$ is a Noetherian local ring, $M$ a finitely generatedd $R$-module. TFAE:
+\begin{itemize}
+\item $M$ is flat.
+\item $M$ is projective.
+\item $M$ is free.
+\end{itemize}
+"commutative algebra" page 21
+
+Assume that $\Tor_i^R(M,k)=0$ for all $i>m$. First we construct a free resolution of $M$:
+\[\cdots \ra F_m\ra F_{m-1}\xr {\phi_{m-1}}F_{m-2}\ra \cdots\ra F_0\ra M\ra 0.\]
+Let $K_m:=\ker (\phi_{m-1})$. Then we show that $\Tor_1^R(K_m,k)=0$ which implies that $K_m$ is flat. First, the general cases can be reduced to the case $m=0$. Since we have the short exact sequence: $0\ra K_0\ra F_0\ra M\ra 0$, we have a long exact sequence:
+\[\Tor_{m+1}^R(F_0,k)\ra \Tor_{m+1}^R(M,k)\ra \Tor_m^R(K_0,k)\ra \Tor_m^R(F_0,k).\]
+$\Tor_{m+1}^R(F_0,k)=\Tor_m^R(F_0,k)=0$ since $F_0$ is free. This implies that $\Tor_m^R(K_0,k)=\Tor_{m+1}^R(M,k)=0$. For the case $m=0$, Let $M\otimes_R k$ is a vector space of dimension $n$ over $k$. Let $F_0=R^n$, then $F_0\otimes_Rk\cong M\otimes_Rk$. Note that we have the short exact sequence $0\ra K_0\ra F_0\ra M\ra 0$ with $\Tor_1^R(M,k)=0$ and want to prove that $M$ is free. Then we have a long exact sequence
+\[\Tor_1^R(M,N)\ra K_0\otimes_Rk\ra F_0\otimes_Rk\ra M\otimes_Rk\ra0\]
+By the assumption, we have $0\ra K_0\otimes_Rk\ra F_0\otimes_Rk\ra M\otimes_Rk\ra0$. However, we have $F_0\otimes_Rk\cong M\otimes_Rk$. This implies that $K_0\otimes_Rk=0$. Hence $K_0=0$ by NAK $\Ra$ $M\cong F_0$ is free.
+
+Next, we show that 6) implies 2). Let $\overline{M}=M/\frm M=M\otimes_Rk$ is a finite $k$-vector space. Let $\overline{m_1},\cdots,\overline{m_{b_0}}$ is a $k$-basis, then we can lift this basis to $m_1,\cdots,m_{b_0}\in M$. Let $\phi_o: R^{b_0}\ra M$, $\phi(r_1,\cdots,c_{b_0})=\sum r_im_i$. This map is surjective by NAK. Moreover, it induces a map $\overline{\phi_0}: k^{b_0}ra \bar{M}$, where $\overline{\phi_0}=\phi_0\otimes_Rk$. Next consider $\ker(\phi_0)$, $\overline{\ker(\phi_0)}$ is a $k$-vector space of dimension $b_1$. Repeat the progress above, we get $\phi_1: R^{b_1}\ra R^{b_0}$ with $\Image(\phi_1)=\ker (\phi_0)$. Continue this progress we can get an exact sequence:
+\[\cdots\ra F_2\xr{\phi_2}F_1\xr{\phi_1}F_0\xr{\phi_0}M\ra0.\]
+where $F_i\cong R^{b_i}$ is a free $R$-module.
+
+\textbf{Claim:} for all $i>1$, $\overline{\phi_i}=\phi_i\otimes_Rk=0$.
+
+\textbf{Proof of Claim:} First we have $0\ra \ker \phi_i\ra F_i\ra \ker\phi_{i-1}\ra 0$. Tensoring with $k$ over $R$, $(\ker \phi_i)\otimes_R k\ra F_i\otimes_Rk\ra (\ker \phi_{i-1})\otimes_Rk$. By the discuss above, we have
+\begin{align*}
+&F_i\otimes_Rk=k^{b_i}\cong \overline{\ker \phi_{i-1}}=(\ker \phi_{i-1})\otimes_Rk\\
+\Ra& \Image ((\ker\phi_i)/\frm(\ker\phi_i)\ra F_i/\frm F_i)=0\\
+\Ra& \Image \phi_{i+1}=\ker \phi_i\su\frm F_i\\
+\Ra& \overline{\phi_{i+1}}: F_{i+1}/\frm F_{i+1}\ra F_i/\frm F_i\text{ is }0.
+\end{align*}
+Now observe that $\Tor_I^R(M,k):=H_i(\cdots\ra F_{j+1}\otimes_Rk\xr{\overline{\phi_{j+1}}=0}F_j\otimes_Rk\ra\cdots)\cong F_i\otimes_R k\cong k^{b_i}$. (6) says taht $\Tor_i^R(M,k)=0$ for all $i>m$. This implies that $\overline{F_i}=0$.
+\end{proof}
+
+\begin{thm}
+Let $(R,\frm)$ be a Noetherian local ring of dimension $d$ and $k=R/\frm$. TFAE:
+\begin{enumerate}
+\item $R$ is regular.
+\item $\frm$ is generated by $d$ elements.
+\item $\frm$ is generated by a regular sequence.
+\item $k=R/\frm$ has finite projective dimension.
+\item Every finitely generated $R$-module has finite projective dimension.
+\end{enumerate}
+\end{thm}
+\begin{proof}
+1) $\Ra$ 2). By definition.
+
+5) $\Ra$ 4). Obvious.
+
+3) $\Ra$ 4). Use Koszul complex, say $\frm=(x_1,\cdots,x_r)$ where $x_1,\cdots,x_r$ is a regular sequence $\Ra$ the Koszul complex $K(x_1,\cdots,x_r;R)$ is a finite free resolution of $R/(x_1,\cdots,x_r)=k$ $\Ra$ $\pdim_R(k)\leq r$.
+
+2) $\Ra$ 3) Suppose that $\frm=(x_1,\cdots,x_d)$ where $d=\dim R$. We will claim:
+
+\textbf{Claim:} For any $i$, $0\leq i\leq d$, the ideal $\frp_i=(x_1,\cdots,x_i)$ is prime in $R$ and $\frp_i\neq \frp_{i+1}$. This implies that $x_1,\cdots,x_d$ is a regular sequence.
+
+$x_1$ generates $\frp_1$ and $\frp_1\neq\frp_0=0$, so $x_1\neq 0$. But $(0)$ is prime, so $x_1$ is not a zero divisor in $R$.
+
+$x_{i+1}\notin (x_1,\cdots,x_i)=\frp_i$ and $R/(x_1,\cdots,x_i)$ is a domain $\Ra$ $x_{i+1}\neq 0$ in $R/\frp_i$ and $x_{i+1}$ is not a zero divisor in $R/\frp_i$.
+
+Next, we prove the claim. Induction on $d$.
+
+When $d=0$. $R$ is a field.
+
+When $d>0$. Let $R'=R/(x_1)$. Then $\dim R\geq \dim (R/(x_1))\geq \dim R-1$. On the other hand, $R'$ is a local ring with maximal ideal $(\overline{x_2},\cdots,\overline{x_d})$, hence $\dim R'\leq d-1$. This implies that $\dim R'=d-1$. Applying the induction hypothesis to $(R',\frm')$, we have $(0)\subsetneqq (\overline{x_1}\subsetneqq\cdots\subsetneqq\frm'$ which are primes in $R'$ $\Ra$ $(x_1)\subsetneqq(x_1,x_2)\subsetneqq\cdots\subsetneqq\frm$ are primes in $R$.
+
+Next we would show that $P_0=(0)$ is primes in $R$, i.e. $R$ is a domain.
+
+Consider $R^*=\oplus_{n\geq 0}\frm^n/\frm^{n+1}$, Let
+\begin{align*}
+\phi: k[t_1,\cdots,t_d]&\ra R^*\\
+a\in k&\mapsto (a,0,0,\cdots)\\
+t_i&\mapsto (0,\cdots,x_i\pmod \frm^{i+1},\cdots)
+\end{align*}
+Obviously, $\phi$ is surjective. We claim that $\phi$ is surjective.
+
+\textbf{Claim:} $\phi$ is injective.
+
+\textbf{Proof of Claim:} Assuming that $\phi$ is not infective, there exists $f$ of degree $n_0$ in $\ker \phi$ $\Ra$ $\phi: k[t_1,\cdots,t_d]/(f)\ra R^*$. Consider $l(R^*/(\frm^*)^{n+1})=l(R/\frm^{n+1})$. Recall Hilbert polynomial $P$ is such that $P(n)=l(R/\frm^{n+1})$. By the dimension theorem, $\deg P=\dim R$. But for $n>0$, \[l\bigg(\frac{k[t_1,\cdots,t_d]}{(t_1,\cdots,t_d)^{n+1}}\bigg)=\binom{n+d}{n}\]
+So for $n>>0$,
+\[l\bigg(\frac{k[t_1,\cdots,t_d]}{(f)+(t_1,\cdots,t_d)^{n+1}}\bigg)
+=\binom{n+d}{d}-\binom{n-n_0+d}{d}\]
+which is of degree $d-1$ $\Ra$ $\deg P\leq d-1$ $\Ra$ $ \dim R\leq d-1$, a contradiction.
+
+For any $0\neq x\in R$, "the leading term of $x$" is $x^*$= image of $x$ in $\frm^n/\frm^{n+1}$ with $n$ largest $n\geq 0$ such that $x\in\frm^n$. By the Krull's intersection theorem, $\cap_{n\geq 0}\frm^n=(0)$. Then for any $0\neq a,b\in R$, $a^*\neq 0,b^*\neq 0$ and $a^*b^*\neq 0$. Since $R^*\cong k[t_1,\cdots,t_d]$ is a domain. but $(ab)^*=a^*b^*$ is zero. This implies that $R$ is a domain.
+
+$4)\Ra 5)$: Step 1: $\pdim_R(k)<\infty$ $\Ra$ $\pdim_R(k)\leq d$.
+
+Step 2: if $\dim_k(\frm/\frm^2)=s$, then we have $\dim_k \Tor_i^R(k,k)\geq\binom{s}{i}$ for $0\leq i\leq s$.
+
+\textbf{Proof of Step 2: }Take a minimal basis $\{x_1,\cdots,x_s\}$ of $\frm$, and consider the Koszul complex $K(x_1,\cdots,x_s;A)$. We have an exact sequence
+\[\cdots\ra F_n\xr{d_n}F_{n-1}\ra\cdots\ra F_1\xr{d_1}F_0=A\xr{d_0}k=A/\frm.\]
+By the definition, we have $d_n(F_n)\su\frm F_{n-1}$. Moreover, we have $\bar{F}_n=k\otimes_A F_n=K_n(x_1,\cdots,x_s;k)$ and $\frm/\frm^2\otimes_AF_{n-1}=\frm/\frm^2\otimes_kK_{n-1}(x_1,\cdots,x_s;k)$. Since the residue classes of the $x_i$'s modulo $\frm^2$ form a $k$-basis of $\frm/\frm^2$, then $d_n$ induces an injection $\bar{F}_n\ra \frm/\frm^2\otimes F_{n-1}$. ??? Therefore we have
+\[\binom{s}{n}=\rk_A F_n\leq \rk_k\Tor_n^A(k,k).\]
+Page 139 commutative algebra
+\end{proof}
+
+
+\section{Cohen-Macaulay ring}
+\begin{definition}
+$A$ is a Noetherian ring, $M$ a finitely generated $A$-module. $I\su A$ an ideal. The depth of $I$ in $M$ $\depth_I(M)$ is the length of largest $M$-regular sequence $x_1,\cdots,x_n$ where all $x_i'$s are in $I$.
+\end{definition}
+\begin{thm}
+Let $A$ be a \textbf{Noetherian} ring, $M$ a finitely generated $A$-module, $I$ an ideal of $A$ with $M\neq IM$. TFAE:
+\begin{enumerate}
+\item $\Ext_A^i(N,M)=0$, for all $i<n$ and for all finitely generated $A$-module $N$ with $\Supp (N)\su V(I)=\{\frp \supseteq I\}$.
+\item $\Ext_A^i(A/I,M)=0$ for all $i<n$.
+\item there exists a finitely generated $A$-module $N$ with $\Supp(N)=V(I)$ such that $\Ext_A^i(N,M)=0$ for all $i<n$.
+\item there exist $M$-regular sequences $x_1,\cdots,x_n\in I$. $(\depth_I(M)\geq n)$.
+\end{enumerate}
+\end{thm}
+\begin{proof}
+1) $\Ra$ 2) $\Ra$ 3), obvious. $\Supp (N)=\{\frp|N_\frp\neq 0\}=V(\Ann(N))$.
+
+3) $\Ra$ 4): Induction on $n$. Basic ideal:
+
+$\{\text{ zero divisors in }A \text{ for }M\}=\cup_{\frp\in\Ass(M)}\frp.$
+
+$\frp\in\Ass(M)$ $\Ra$ $A/\frp\hookrightarrow M$.
+
+$n=1$: $\Ext_A^0(N,M)=\Hom_A(N,M)=0$. Suppose no element of $I$ is $M$-regular. So $I\su \{\text{ zero divisors for }M\}=\cup_{\frp\in\Ass(*M)}\frp$ $\Ra$ $I\su \frp$ for some $\frp$. $\frp\in\Ass(M)$ $\Ra$ $\exists A/\frp\hookrightarrow M$ $k(\frp):=\Ra$ $A_\frp/\frp A_\frp=(A/\frp)_\frp\hookrightarrow M_\frp$. But $\frp\in\Supp(N)=V(I)$. So $N_\frp\neq 0$, so $N_\frp\otimes _{A_\frp}k(\frp)\neq0$ by NAK. $\Ra$ the map $N_\frp\ra N_\frp\otimes_{A_\frp}k(\frp)\ra k(\frp)\hookrightarrow M_\frp$ is not zero $\Ra$ $\Hom_A(N,M)\otimes_AA_\frp\neq 0$ $\Ra$ $\Hom_A(N,M)\neq0$.
+
+If $n>1$. We still have $\Ext_A^0(N,M)=0$ $\Ra$ $\exists x_1$ which is $M$-regular. Set $M_1=M/x_1M$. We have an exact sequence $0\ra M\xr{x_1}M\ra M/x_1M\ra 0$ $\Ra$ $\Ext_A^i(N,M)\xr{x_1}\Ext_A^i(N,M)\ra\Ext_A^i(N,M_1)\ra \Ext_A^{i+1}(N,M)$ is exact $\Ra$ $\Ext_A^i(N,M_1)=0$ for all $i<n-1$ by assumption $\Ra$ by induction, there exist $x_2,\cdots,x_n\in I$ which is $M_1$-regular sequence. Hence $x_1,\cdots,x_n$ is an $M$-regular sequence.
+
+4)$\Ra$1): Suppose that $x_1,\cdots,x_n\in I$ is an $M$-regular sequence. Set $M_1=M/x_1M$, then $0\ra M\xr{x_1}M\ra M_1\ra0$ is exact. So we have exact sequence
+\[\Ext_A^{i-1}(N,M_1)\ra\Ext_A^i(N,M)\xr{x_1}\Ext_A^i(N,M)\]
+By the induction hypothesis, $\Ext_A^{i-1}(N,M_1)=0$. This implies that the map $x_1$ is injective. On the other hand, $V(\Ann(N))=\Supp(N)\su V(I)$ $\Ra$ $I\su\sqrt{\Ann(N)}$. So $x_1^r\in\Ann(N)$ for some integer $r>0$ since $x_1\in I$. Hence $x_1^r\Ext_A^i(N,M)=(0)$ $\Ra$ $\Ext_A^i(N,M)=0$. This completes the proof.
+\end{proof}
+
+\begin{cor}
+$\depth_I(M)=\min\{i|\Ext_A^i(N,M)\neq 0\}$
+\end{cor}
+
+\begin{thm}
+Let $(A,\frm)$ be a Noetherrian local ring. $M$ is a finitely generated $A$-module. Then $\depth M\leq \dim (A/\frp)$ for all $\frp\in\Ass(M)$.
+\end{thm}
+\begin{proof}
+We need the next lemma:
+\begin{lem}
+$M,N\neq 0$ are finitely generated $A$-modules. Set $\depth M=m$, $\dim N=n$. Then $\Ext_A^i(N,M)=0$ for $i<m-n$.
+\end{lem}
+\begin{proof}
+By induction on $r$. If $r=0$, then $\Supp(N)=\{\frm\}$ so the assertion holds. Suppose that $r>0$, there exists a chain
+\[N=N_0\supseteq N_1\supseteq\cdots\supseteq N_n=(0)\] with $N_j/N-{j+1}\cong A/P_j$ of submodules $N_j$, where $P_j\in \Spec A$. It is easy to see that if $\Ext_A^i(N_j/N_{j+1},M)=0$ for each $j$, then $\Ext_A^i(N,M)=0$. Since $\dim N_j/N_{j+1}\leq \dim N=r$, it is enough to prove that $\Ext_A^i(N,M)=0$ for $i<k-r$ in the case $N=A/P$ with $P\in \Spec A$ and $\dim N=r$. Since $r>0$ we can take an element $x\in \frm- P$ and get the exact sequence
+\[0\ra N\xr{x}N\ra N'\ra 0\]
+where $N'=A/(P,x)$; then $\dim N'<r$ so that by induction we have $\Ext_A^i(N',M)=0$ for $i<k-r+1$. Thus for $i<k-r$ we have an exact sequence
+\[0\ra \Ext_A^i(N,M)\xr{x}\Ext_A^i(N,M)\ra \Ext_A^{i+1}(N',M)=0.\]
+we have $x\in\frm$ so that by NAK, $\Ext_A^i(N,M)=0$.
+\end{proof}
+For any $\frp\in \Ass(M)$, $A/\frp\hookrightarrow M$. Take $N=A/\frp$, then $\Ext_A^0(N,M)=\Hom_A(N,M)\neq 0$ $\Ra$ $\depth M\leq \dim (A/\frp)$.
+\end{proof}
+
+%---------------------------------------
+%省略
+%---------------------------------------
+
+\subsection{CM ring}
+\begin{definition}
+$(A,\frm)$ is a Noetherian local ring. $A$ is called Cohen-Macaulay (CM) ring if $\depth (A)=\dim (A)$. $M$ is a finitely generated $A$-module, $M$ is CM if either $M=0$ or $\dim M=\depth M$.
+\end{definition}
+
+The theorem above shows that $\depth M\leq\dim (A/\frp)$. $\dim M=\sup \{\dim (A/\frp)| \frp\in\Ass(M)\}$. $\Ra$ 1) for any $\frp\in\Ass(M)$, $\dim (A/\frp)=\depth M$. 2). no embedding primes! For any $\frp$ minimal in $A$, $\dim (A/\frp)$ is the same. Since $\Spec (A/\frp)$ are the irreducible component of $\Spec A$ where $\frp$ is minimal. $\Ra$ If $A$ is CM, then all irreducible components of $\Spec A $ have the same dimension.
+
+\begin{ex}
+1).$R=k[x,y,z]/(xy,xz)$, localize at $(\bar{x},\bar{y},\bar{z})$
+
+2).$A=\text{ localization of }k[x,y,z]/(xy-z^2)$ at $(\bar{x},\bar{y},\bar{z})$. $\dim A=2$, $\bar{x},\bar{y}$ is regular sequence in $\frm$.
+\end{ex}
+
+Every maximal $M$-regular sequence in $I$ has the same number of elements =$\depth_I(M)$.
+
+$I=\frm$ suppose $x_1,\cdots,x_r$ is $M$-regular, then $\dim M/(x_1,\cdots,x_r)M=\dim M-r$.
+\begin{proof}
+For any $x\in \frm$. Consider $M/xM$, $\dim M\geq \dim (M/xM)\geq \dim M-1$ $\Ra$ $\dim M\geq \dim (M/(x_1,\cdots,x_r))\geq \dim M-r$. Now, assume $x$ is $M$-regular $\Ra$ $x\notin \cup_{\frp\in\Ass(M)}\frp$ $\Ra$ $x\notin \frp$ for some minimal prime $\frp$ in $\Supp(M)$. Consider $\Supp(M/xM)=\Supp(M)\cap\Supp(A/xA)=\Supp(M)\cap V(x)$. (If $E, F$ are finitely generated $A$-module, then $\Supp(E\otimes_AF)=\Supp(E)\cap\Supp(F)$). But $\Supp(M)=V(\Ann(M))=\cup_iZ_i$ (irreducible components), $Z_i=V(\frp_i)$ for some minimal prime $\frp_i$. $x\notin \frp_i$ $\Ra$ $V(\frp_i)\nsubseteq V(x)$ $\Ra$ $V(x)\cap V(\frp_i)\varsubsetneq V(\frp_i)$ $\Ra$ $\dim (V(x)\cap\Supp (M))\leq \dim (\Supp(M))-1=\max\{\dim (V(\frp_i))\}$.
+\end{proof}
+
+\begin{prop}
+Let $(A,\frm)$ be a Noetherian local ring, $N$ a finitely generated $A$-module. Then
+\begin{itemize}
+\item Suppose $x_1,\cdots,x_r\in\frm$ is an $M$-regular sequence, then $M$ is CM $\Ra$ $M/(x_1,\cdots,x_r)M$ is CM.
+\item $\frp\in \Spec (A)$. If $M$ is CM, then so is $M_\frp$ and $\depth (M_\frp)=\depth_\frp (M)$.
+\end{itemize}
+\end{prop}
+
+\begin{thm}
+$(A,\frm)$ CM local ring.
+\begin{enumerate}
+\item $a_1,\cdots,a_r\in\frm$. TFAE:
+\begin{enumerate}
+\item $a_1,\cdots,a_r$ is a regular sequence.
+\item $\height(a_1,\cdots,a_i)=i$ for all $1\leq i\leq r$.
+\item $\height(a_1,\cdots,a_r)=r$.
+\item there exist $a_{r+1},\cdots, a_n$ such that $a_1,\cdots,a_n$ is a system of parameters for $A$.
+\end{enumerate}
+\item for any $I\varsubsetneq A$, $\height(I)=\depth_I(A)$ and $\height(I)+\dim (A/I)=\dim A$.
+\end{enumerate}
+\end{thm}
+\begin{proof}
+1). a) $\Ra$ b): $a_1,\cdots,a_r$ $A$-regular.
+
+\textbf{Basic idea:} $\height(a_1,\cdots,x_i)\leq i$ $a_i$ is not a zero divisor in $A/(a_1,\cdots,a_{i-1})$.
+
+b) $\Ra$ c), Obvious.
+
+d) $\Ra$ a), $x_1,\cdots,x_n$, $n=\dim A$, $A$ is CM. $\frm^\mu\su (x_1,\cdots,x_n)\su\frm$ for some $\mu$. This implies that $x_1,\cdots,x_n$ is regular.
+
+$\cdot$ $x_1$ is not a zero divisor, otherwise $x_1\frp$ for some $\frp\in\Ass(A)$. But $A$ is CM $\Ra$ $\Ass(A)$= minimal prime and for any such prime $\frp$ $\dim A=\dim A/\frp=\depth_\frm(A)=n$. $\overline{x_2},\cdots,\overline{x_n}$ is a system of parameter in $A/\frp$, $\Ra$ $\dim (A/\frp)\leq n-1$, a contradiction.
+
+Induction on $n$, consider $A'=A/(x_1)$, $\dim A'=n-1$ $A'$ is CM.
+\end{proof}
+
+\begin{definition}
+a Noetherian ring $A$ is CM if for all $\frp\in\Spec A$, $A_\frp$ is CM.
+\end{definition}
+
+\begin{ex}
+$I\su k[x_1,\cdots,x_n]$, with $\height(I)=r$, $I=(a_1,\cdots,a_r)$. Then $A=k[x_1,\cdots,x_n]/I$ is CM.
+\end{ex}
+
+Let $A$ be a Noetherian ring, $I\su A$ an ideal.
+
+\begin{definition}
+$I$ is "unmixed" if $A/I$ has no embedded primes. We say that the "unmixed theorem holds in $A$" when all ideals $I\su A$ that are generated by as many as elements as their height are unmixed. We have proved: $A$ is CM $\Ra$ unmixed theorem holds in $A$.
+\end{definition}
+
+\begin{thm}
+The converse is true, i.e. $A$ is CM ring if and only if the unimixedness theorem holds in $A$.
+\end{thm}
+\begin{proof}
+Suppose the unmixedness theorem holds in $A$. Let $\frp$ be a prime ideal of height $r$. Then we can find $a_1,\cdots,a_r\in \frp$  such that $\height(a_1,\cdots,a_i)=i$ for $1\leq i\leq r$. The ideal $(a_1,\cdots,a_i)$ is unmixed by assumption. So $a_{i+1}$ lies in no associated primes of $A/(a_1,\cdots,a_i)$. Thus $a_1,\cdots,a_r$ is an $A$-regular sequence in $\frp$, hence $r\leq \depth_\frp(A)\leq\depth A_\frp\leq \dim A_\frp=r$, so $A_\frp$ is a CM local ring. This proves the theorem.
+\end{proof}
+
+For a Noetherian local ring $(A,\frm)$, we have already know that $A$ is CM if
+\begin{enumerate}
+\item $\dim A=0$.
+\item $A$ is an integral domain and $\dim A=1$.
+\item $A$ is regular.
+\item $A\cong B/I$ where $B$ is regular, $I$ generated by regular sequence.
+\item $A$ is a normal integral domain and $\dim A=2$.
+\end{enumerate}
+
+\begin{thm}
+$(A,\frm)$ is a Noetherian local ring. $k=A/\frm$. $M$ is a nonzero finitely generated $A$-module. Suppose $\pdim_A(M)<\infty$. Then
+\[\pdim_A(M)+\depth_\frm(M)=\depth_\frm(A).\]
+\end{thm}
+
+\begin{proof}
+Induction on $\pdim_A(M)$.
+
+When $\pdim_A(M)=0$, $M$ is a finitely generated projective $S$-module. Since $A$ is a Noetherian local ring, $M$ is $A$-free, i.e. $M\cong A^n$ for some integer $n$. Then $\depth(M)=\depth(A^n)=\depth(A)$.
+
+When $\pdim_A(M)=1$, then we have a free resolution of $M$, $0\ra F_1\xr{\phi}F_0\ra M\ra 0$. We can assume that this resolution is minimal, i.e $\phi\otimes_Ak=0$ $(\phi(F_1)\su\frm F_0)$.
+
+Suppose that $\pdim_A(M)=n>1$, and we have a minimal resolution of $M$: \[0\ra F_n\ra \cdots,\ra F_1\ra F_0\ra M\ra0.\]
+consider
+\begin{equation}
+0\ra M_1=\ker (\phi_1)\hookrightarrow F_0\ra M\ra0.\label{eq:E}
+\end{equation}
+We have another exact sequence
+\[0\ra F_n\ra \cdots\ra F_1\ra M_1\ra 0.\]
+$\Ra$ $\pdim_A(M_1)\leq n-1$. Actually, by some easy discussion, $\pdim_A(M)=n-1$.
+Applying induction hypothesis to $M_1$, we have $\depth(M_1)=d+1-n$. Use $\depth(N)=\min\{i|\Ext_A^i(k,N)\neq 0\}$. Applying $\Ext_A^i(k,-)$ to $(\ref{eq:E})$, we get
+\[\ra \Ext_A^i(k,M_1)\xr{0}\Ext_R^i(k,F_0)\ra \Ext_A^i(k,M)\ra \Ext_A^{i+1}(k,M_1)\xr{0}\Ext_A^i(k,F_0).\]
+For $i=d-n$, $\Ext_A^{i+1}(k,M_1)\neq 0$ $\Ra$ $\Ext_A^i(k,M)\neq 0$. For $i<d-n$, $\Ext_A^{i+1}(k,M_1)=0$, $\Ext_A^i(k,F_0)=\oplus \Ext_A^i(k,A)=0$ for $i<\depth(A)=d$. This implies that $\Ext_A^i(k,M)=0$ $\Ra$ $\depth(M)=d-n$.
+\end{proof}
+
+\textbf{Application:} $\phi: R\ra S$ is a homomorphism of Noetherian rings. Assume $R$ is regular (for any $\frp\in\Spec R$, $R_\frp$ is regular), $S$ is a finitely generated $R$-module and $\dim R=\dim S$. Then TFAE:
+\begin{enumerate}
+\item $S$ is CM.
+\item $\phi$ is flat.
+\end{enumerate}
+\begin{proof}
+For the special case, $R,S$ are local. $\phi$ is a local homomorphism. In this case, $\phi$ is flat $\Leftrightarrow$ $S$ is free $R$-module $\Leftrightarrow$ $\pdim_R(S)=0$ because $R$ is local Noetherian ring, $M$ finitely generated $R$-module, $M$ flat $\Leftrightarrow$ $M$ projective $\Leftrightarrow$ $M$ free.
+
+Applying AB formular, for $M=S$,
+\[\pdim_R(S)+\depth_{\frm_R}(S)=\depth(R)=\dim R=d\] since $R$ is regular.
+\end{proof}
+
+%------------------------------
+%省略证明以及AB公式
+%------------------------------
+
+
+
+\subsection{Serre's Criterion for Normality}
+$A$ is a Noetherian ring, $k=0,1,2,\cdots$. We say $A$ satisfies condition $Rk$ if for any $\frp\in\Spec(A)$ with ht $(\frp)\leq k$, $A_\frp$ is regular.
+$A$ satisfies condition $Sk$ if for all $\frp\in \Spec(A)$, depth $(A_\frp)\geq \min\{k,\text{ht }(\frp)\}$.
+
+$S1$: if ht $(\frp)=0$, empty. If ht $(\frp)=1$, then depth $(A_\frp)\geq 1$ $\Rightarrow$ $\frm$ contains a non-zero divisor in $A_\frp$ $\Leftrightarrow$ $\frm\notin \Ass(A_\frp)$. This fails if and only if $\frp\notin \Ass(A)$. $\Rightarrow$ condition $S1$ $\Leftrightarrow$ no embedded prime $\frp$ in $A$.
+
+$R0$: For any $\frp$, ht $(\frp)=0$ $\Rightarrow$ $\dim (A_\frp)=0$ $\Rightarrow$ $A_\frp$ is Artin local. Such an $A_\frp$ is regular $\Leftrightarrow$ $\frm=0$, i.e. $A_\frp$ is a field.
+
+\begin{thm}
+$A$ satisfies $(R0)+(S1)$ $\Leftrightarrow$ $A$ is reduced.
+\end{thm}
+\begin{proof}
+Recall that $A$ is reduced if and only if $A_\frp$ is reduced for all $\frp\in\Spec(A)$. Suppose $A$ is reduced, then $A_\frp$ is reduced for all $\frp\in\Spec(A)$. ht $(\frp)=0$ $\Rightarrow$ $\dim A_\frp=0$ $\Rightarrow$ $A_\frp$ is Artin. This implies that $\frm_\frp$ is the only prime ideal of $A_\frp$. Hence $\frm_\frp=\sqrt{(0)}=(0)$. So $A_\frp$ satisfies $R0$.
+
+If $\frp\in\Spec (A)$, ht $(\frp)\geq 1$. We want to prove depth $(A_\frp)\geq 1$. We claim that $\frm_\frp$ is not an associated primes ideal of $A_\frp$. If it is, then there is $0\neq x\in\frm_\frp$ such that $\Ann(x)=\frm_{frp}$. So $x^2=x\cdot x=0$. But $A_\frp$ is reduced, a contradiction. This implies that $\depth (A_\frp)\geq 1$.
+
+Conversely, assume $A$ satisfies $R0+S1$, enough to show $A_\frp$ is reduced for all $\frp$.
+
+If $\height (\frp)=0$, then $(R0)$ implies that $A_\frp$ is regular $\Rightarrow$ $\frp$ is a field $\Rightarrow$ $A_\frp$ is reduced.
+
+If $\height(\frp)\geq 1$, then $S1$ implies that $\depth(A_\frp)\geq 1$. So there exists $t\in \frm_\frp$ which is not a zero divisor, this gives $A_\frp\hookrightarrow A_\frp[\frac{1}{t}]$. The prime ideals of $A_\frp[\frac{1}{t}]$ correspond to prime ideals $\frq$ of $A_\frp$ such that $t\notin \frq$. Then $\frq \varsubsetneqq\frp A_\frp=\frm_\frp$. This implies that $\height(\frq)<\height(\frp)$. So we can use induction to show that $A_\frp[\frac{1}{t}]$ is reduced. Hence $A_\frp$ is reduced.
+\end{proof}
+
+\begin{thm}[Serre's criterion for normality]
+Suppose $A$ is a domain. Then $A$ satisfies $R1+S2$ $\Leftrightarrow$ $A$ is normal i.e. integrally closed in Fr$(A)$.
+\end{thm}
+\begin{proof}
+Recall that $A$ is nnormal if and only if $A_\frp$ is normal for all $\frp$.
+
+$"\Ra"$ Assume $A$ is local. Then $A$ is local normal domain. We want to prove
+\begin{itemize}
+\item If $\dim A=1$, then $A$ is regular.
+\item If $\dim\geq 2$ $\Ra $ $\depth(A)\geq 2$.
+\end{itemize}
+First, we prove: $A$ Noehterian local domain of $\dim=1$. Then $A$ is normal if and only if $A$ is regular. Let $K=\text{Fr}(A)$, $\frm$ be the maximal ideal of $A$ and $I\su A$. Consider $I^{-1}=\{x\in K|x\cdot I\su A\}$, then $\frm\cdot\frm^{-1}\su A$.
+
+Case 1: $\frm\frm^{-1}\su \frm$. Then for all $a\in\frm^{-1}$, $a\frm\su\frm$ $\Ra$ $a$ is integral over $A$ $\Ra$ $a\in A$ $\Ra$ $\frm^{-1}\su A$ $\Ra$ $\frm^{-1}=A$.
+
+$\dim A=1$ $\Ra$ there exists $x\in \frm$ where $\frm\in \Ass(A/(x))$. Hence we have an injection:
+\begin{align*}
+A/\frm&\hookrightarrow A/(x)\\
+1&\mapsto b
+\end{align*}
+$\Ra$ for any $y\in frm$, $yb\in (x)$ $\Ra$ $\frac{b}{x}\cdot y\in A$ $\Ra$ $b/x\in \frm^{-1}=A$ $\Ra$ $b\in (x)$, a contradiction.
+
+Case 2: $\frm\frm^{-1}=A$. Pick $x\in\frm\de\frm^2$ (by NAK). If $x\frm^{-1}\su \frm$ $\Ra$ $(x)=x\frm\frm^{-1}\su \frm^2$, a contradiction. So $x\frm^{-1}=A$ $\Ra$ $(x)=x\frm\frm^{-1}=\frm$ $\Ra$ $A$ is regular.
+
+$A$ is regular local $\Ra$ $A$ is normal.
+
+hint: $A$ is regular $\Ra$ $\frm=(x)$, use this to show that every element $a\in A$ can be written as $a=x^nu$ $n\geq 0,u\in A^*$. $\Ra$ $A$ is UFD, with $x$ the only prime element $\Ra$ $A$ is normal.
+
+2). $A$ normal local domain. $\dim A\geq 2$. We want to prove $\depth A\geq 2$. Pick $0\neq x\in A$ $x$ is not a zero divisor. Consider $A/(x)$, we want to find a non zero divisor in $A/(x)$. Consider $\frp\in \Ass(A/(x))$ $\frp\in\Spec(A)$, so $(x)\su \frp$. We want to show $\frp$ is minimal that contains $(x)$. $\frp^{-1}\su k$, again we have $\frp^{-1}\neq A$. As before, we have $(\frp A_\frp)(\frp A_\frp)^{-1}=A_\frp$ $\Ra$ $\frp A_\frp$ is generated by $1$ element $\Ra$ $\dim A_\frp=1$, i.e. $\height (\frp)=1$. However, $\dim (A/(x))\geq 1$ $\Ra$ there exists $y\notin \cup_{\frp\in \Ass(A/(x))}\frp$ $\Ra$ $y$ is not a zero divisor in $A/(x)$.
+
+Conversely, we assume $R1+S2$, want to prove that $A$ is normal.
+
+1): Observation, $A$ is a domain that satisfies $S2$. So for any $0\neq b\in A$, $b$ is not a zero divisor. Then we want to prove that $A/(b)$ has no embedded primes. Suppose $\frq\in\Ass(A/(b))$, then $(b)\su \frq\su A$. To show that $\frq$ cannot be embedded, it is enough to show that $\frq$ is minimal containing $(b)$, i.e. $\height (\frq)=1$. Since $A$ is an integral domain and $\frq\neq 0$, $\height (\frq)\geq 1$. Hence it is enough to rule out $\height(\frq)\geq 2$. Assume that $\height(\frq)\geq 2$. $S2$ $\Ra$ $\depth(A_\frq)\geq 2$ and we have $(b)\su \frq\su A$. This implies that there exists regular sequence $(b,b_1)\in Q$. This contradicts $\frq \in\Ass(A/(b))$. This proves that $A/(b)$ has no embedded primes.
+
+2)\begin{lem}\label{lem:A}
+$A$ is a Noetherian ring, $M$ a finitely generated $A$-module. Then \[\phi: M\hookrightarrow\prod_{\frp\in\Ass(M)}M_\frp\]
+\end{lem}
+\begin{proof}
+Consider $x\in\ker\phi$, $Ax\su M$ is a submodule. We want to prove that $Ax=(0)$. Assume that $Ax\neq (0)$. Then $\Ass(Ax)\neq\varnothing$, suppose that $\frq\in\Ass(Ax)$, then $\frq=\Ann(a_0x)$ for some $a_0\in A$.  Then we have $A/\frq\hookrightarrow Ax\hookrightarrow M$ where the first injection is given by $\bar{a}\mapsto aa_0x$. This implies that $\frq\in\Ass(M)$. So $(Ax)_\frq=(0)$ since $x\in\ker\phi$. This contradicts that $\Ass(Ax)\su\Supp(Ax)$. This completes the proof of the lemma.
+\end{proof}
+Back to Serre's Criterion for Normality.
+
+Suppose that $a/b$ is integral over $A$. For any $\frp\in\Ass(A/(b))$, $\height(\frp)=1$ $\Ra$ $\dim A_\frp=1$ $\Ra$ $ A_\frp$ is regular $\Ra$ $A_\frp$ is normal. So $a/b\in A_\frp$ $\Ra$ $\bar{a}=0$ in $(A/(b))_\frp=A_\frp/bA_\frp$. Apply lemma to $M=A/(b)$.
+\end{proof}
+This also gives: $A$ normal domain $\Ra$ $A=\cap_{\height (\frp)=1}A_\frp$.
+\begin{thm}\label{lem:B}
+$A$ is a Noetherian regular local ring $\Ra$ $A$ UFD.
+\end{thm}
+\begin{proof}
+\begin{lem}\label{lem:C}
+$A$ is a Noetherian integral domain. If every irreducible element in $A$ generates a prime ideal, then $A$ is UFD.
+\end{lem}
+\begin{proof}
+For any $a\in A$, if $a$ is irreducible, there is nothing to do. If $a$ is not irreducible, then write $a=a_1b_1$. Continue this progress, we get a chain $(a)\su (a_1)\su (a_2)\su\cdots$. However, this chain must be stable since $A$ is Noetherian. This implies that $a$ can be written as a product of some irreducible elements. If $a=\prod\pi_i=\prod\pi_j'$ are two different method to factor $a$. $\pi_1|\prod\pi_i'$ and $(\pi_1)$ is prime implies that $\pi_1|\pi_i$ for some $i$. The irreducibility of $\pi_1$ implies that $\pi_1=u\pi_i$ for some unit $u$. Continue this progress like the same progress in $\bb{Z}$.
+\end{proof}
+\begin{lem}\label{lem:D}
+$A$ is a Noetherian domain. $A$ is UFD if and only if every prime ideal of $\height=1$ is principle ideal.
+\end{lem}
+\begin{proof}
+Assuming that $A$ is UFD, $\frp$ a prime with height $1$. Then there exists $0\neq a\in \frp$. Assume $a$ is irreducible. $(a)\su \frp$ and $(a)$ is prime implies that $\frp=(a)$.
+
+Conversely, assume that for any prime $\frp$ of height $1$ is principle. Let $0\neq\pi$ be an irreducible element, then $\height(\pi)\leq 1$ implies that $\height(\pi)=1$. Let $\frp$ be a minimal prime containing $(\pi)$, then $\height(\frp)=1$. Hence it is principle, i.e. $\frp=(a)$ for some $a\in A$ $\Ra$ $(\pi)\su(a)$ $\pi=ab$ for some $b$. However, since $\pi$ is irreducible, $b$ is a unit $\Ra$ $(\pi)=(a)$ is a prime ideal.
+\end{proof}
+\begin{lem}\label{lem:E}
+$A$ is a Noetherian domain. $x\in A$ is irreducible. Then $A$ is a UFD if and only if $A[\frac{1}{x}]$ is a UFD.
+\end{lem}
+\begin{lem}\label{lem:F}
+$A$ is a Noetherian domain, $(0)\neq I\su A$. Then $I$ is principle if and only if $I$ is free $I$-module. So if in addition $A$ is local, then $I$ is principle if and only if $I$ is a projective $A$-module.
+\end{lem}
+\begin{proof}
+$"\Leftarrow"$ $I\hookrightarrow A$ $\Ra$ $I\otimes_AK\hookrightarrow A\otimes_AK=K$. If $I$ is free, i.e. $I\cong A^n$. Then $n=1$. So $I\cong A$, i.e. $I$ is principle. Another part is obvious.
+\end{proof}
+\begin{lem}\label{lem:G}
+$A$ is a Noetherian ring, $M$ a finitely generated $A$-module. Then $M$ is projective as $A$-module if and only if $M_\frp$ is a projective $A_\frp$-module for all $\frp\in \Spec(A)$.
+\end{lem}
+\begin{proof}
+$"\Rightarrow"$ Since $M$ is a projective $A$-module, there exist a projective $A$-module $N$ such that $M\oplus N\cong A^n$ is free. So $M_\frp\oplus N_\frp\cong A_\frp^n$ for all $\frp\in \Spec(A)$, this implies that $M_\frp$ is projective $A_\frp$-module.
+
+$"\Leftarrow"$ We know that $\Ext_{A_\frp}^i(N_\frp,M_\frp)=0$ for all $i>0$ and finitely generated $A$-module $N$. Moreover, we have $\Ext_A^i(M,N)\otimes_AA_\frp\cong \Ext_{A_\frp}^i(N_\frp,M_\frp)$ for all $i$. Let $E^i:=\Ext_A^I(N,M)$. We get that $E_\frp^i=0$ for all $\frp\in \Spec(A)$ $\Ra$ $E^i=0$ for all $i>0$ and all finitely generated $N$ $\Ra$ $M$ is projective.
+\end{proof}
+\textbf{Proof of the theorem:} Let $k=A/\frm$ where $\frm$ is the maximal ideal of $A$. First we prove that $A$ has to ba a domain.
+
+Induction on $\dim A$.
+
+When $\dim A$=0. $\dim_k\frm/\frm^2=0$ $\Ra$ $\frm=\frm^2$ $\Ra$ $\frm=0$ by NAK. So $A$ is a field.
+
+When $\dim A=1$. Then the maximal ideal $\frm=(x)$ is principal and $\height(\frm)=1$, then there exists a prime ideal $\frp=(p)=\varsubsetneq\frm$. Suppose $p=xa$. $a\in \frp$ since $x\notin\frp$. So $\frp=x\frp$. By NAK, this implies that $\frp=(0)$. So $A$ is an integral domain.
+
+When $n=\dim A>1$. Then the maximal ideal is generated by $n$ elements, say $x_1,\cdots,x_n$. Then $A/(x_1)$ is again regular local of dimension $n-1$. By induction hypothesis, it is an integral domain. First, $x_1$ is not a zero divisor, otherwise $x_1y=0$ in $A$, $\bar{x}_1\bar{y}=0$ in $A/(x_2)$. Then $y\in(x_2)$ since $x_1\notin (x_2)$ otherwise, $\frm$ can be generated by $n-1$ elements. By easy induction, we have $y=y_1x_2=y_2x_2^2=\cdots$ $\Ra$ $y\in\cap \frm^n\neq\varnothing$, a contradiction. Next, Suppose $ab=0$ in $A$. Then $\bar{a}\bar{b}=0$ in $A/(x_1)$. Suppose $a\in (x_1)$, $a=x_1a_1$ $\Ra$ $a_1bx_1=0$ $\Ra$ $a_1b=0$ since $x_1$ is not a zero divisor. This implies that $a=a_1x_1=a_2x_1^2=\cdots$ or $b=b_1x_1=b_2x_1^2=\cdots$. This implies that $\cap \frm^n\neq \varnothing$, a contradiction.
+
+Next, we prove that $A$ is a UFD. Induction on $\dim A$.
+
+When $\dim A=0$, it holds by the discussion above.
+
+When $\dim A=1$. Then $\height(\frm)=1$. Since $A$ is regular, $\frm$ is generated by one element, i.e. $\frm=(x)$ for some $x\in \frm$. This implies that $A$ is a PID, so $A$ is UFD.
+
+Suppose that $\dim A>1$. Pick $x\in\frm-\frm^2$. $A'=A/(x)$ is still local and regular since $\dim A'=\dim A-1=\dim_k\frm'/\frm'^2$ $(\frm'/\frm'^2=(\frm/(x))/(\frm/(x))^2=\frm/(\frm^2,x))$. So $A'$ is a domain. This implies that $(x)$ is a prime ideal.
+
+Now use lemma $(\ref{lem:E})$. Consider $A[\frac{1}{x}]$, $\frp'$ a prime ideal of $A[\frac{1}{x}]$ with $\height(\frp')=1$. By the lemma $(\ref{lem:D})$ and lemma $(\ref{lem:F})$, to prove $A[\frac{1}{x}]$ is UFD, it is enough to prove that $\frp'$ is principle, also enough to show that it is free. Let $\frp=\frp'\cap A$ be a prime ideal in $A$. Then $\frp'=\frp\otimes_AA[\frac{1}{x}]$. Since $A$ is regular, the $A$-module $\frp$ has a finite projective resolution,
+\[0\ra F_n\ra \cdots\ra F_1\ra F_0\ra \frp\ra 0.\]
+where $F_i\cong A^{n_i}$ is free for some integer $n_i$. Tensoring with $A[\frac{1}{x}]$ we get a projective resolution of $\frp'$,
+\[0\ra F_n\big[\frac{1}{x}\big]\ra \cdots \ra F_1\big[\frac{1}{x}\big]\ra F_0\big[\frac{1}{x}\big]\frp'\ra 0.\]
+\textbf{Claim:} $\frp'$ is a projective $A[\frac{1}{x}]$-module.
+
+\textbf{Proof of claim:} By the lemma $(\ref{lem:G})$, if $\frp_\frq'$ is a projective $(A[\frac{1}{x}])_\frq$-module for all prime ideal $\frq\su A[\frac{1}{x}]$, then the claim holds. But $(A[\frac{1}{x}])_\frq=A_{\frq\cap A}$, so it is regular of $\dim (A_{\frq\cap A})=\height(\frq\cap A)<\height(\frm)=\dim A$, because $\frq\cap A$ containing $(x)$ which is of height one. Apply induction to $A_{\frq\cap A}$, it is a UFD. So by the lemma $(\ref{lem:D})$, $\frp_\frq'$ is principle since it is a prime ideal of height $1$. So it is free by lemma $(\ref{lem:F})$.
+
+It remains to show the following lemma:
+\begin{lem}
+$R$ is a Noetherian domain. $K=Fr(R)$. $L$ is a finitely generated projective $R$-module of rank $1$ $(\text{rank }(L):=\dim_K(L\otimes_RK))$ which has a finite free resolution:
+\[0\ra F_n\ra \cdots\ra F_1\ra F_0\ra \frp\ra 0.\]
+where $F_i\cong R^{n_i}$. Then $L$ is free, i.e.$L\cong R$.
+\end{lem}
+\begin{proof}
+Let $K_i=\ker \phi_i$, then we have the short exact sequence $0\ra K_0\ra F_0\ra L\ra 0$, $0\ra K_1\ra F_1\ra K_0\ra 0$, $\cdots$. Since $L$ is projective, we have $F_0\cong K_0\oplus L$. This implies that $K_0$ is projective since $F_0$ is free. $\Ra$ $F_1=K_1\oplus K_0$ $\Ra$ $K_1$ is projective $\Ra\ \cdots\ \Ra$ all $K_i$ are projective and all short exact sequence are split. Moreover, we have $F_0=K_0\oplus L, F_1=K_1\oplus K_0$, this implies that $K_1\oplus F_0=F_1\oplus L$. With $F_2=K_2\oplus K_1$ we get that $F_2\oplus F_0=F_1\oplus K_2\oplus L$. By easy induction, we get that $\bigoplus_{\text{even}}F_i=\bigoplus_{\text{odd}}F_i\oplus L$. This implies that $R^m\cong R^n\oplus L$ for some $m,n$ and $m=n+1$ since rank $(L)=1$. Next, we want to show $L\cong R$.
+
+\textbf{Remark:} An $R$-module $M$ is stably free if there exist free modules $F,F'$ such that $F\oplus M\cong F'$.
+
+\textbf{Exterior Powers:} $R$ is a commutative ring with identity. $M$ is an $R$-module. Define $\bigwedge^nM_i=\overbrace{ M\otimes_R\cdots\otimes_RM }^{n \text{ copies}}/D$, where $D$ is submodule of $M\otimes_R\cdots\otimes_RM$ generated by the elements $m_1\otimes \cdots\otimes m_n$ where $m_i=m_j$ for some $i\neq j$. In general, for any permutation $\sigma$, we have $m_{\sigma(1)}\wedge\cdots\wedge m_{\sigma(n)}=\text{sgn}(\sigma) m_1\wedge\cdots\wedge m_n$.
+
+\textbf{Facts:} 1) If $M\cong R^m$, then $\bigwedge^nM\cong R^{\binom{m}{n}}$.
+
+2). If $M=M_1\oplus M_2$ then there exist an isomorphism
+\[\bigwedge^n M=\bigoplus_{i=0}^n\bigg(\bigwedge^iM_1\bigg)\otimes_R\bigg(\bigwedge^{n-i}M_2\bigg).\]
+
+In our case: $R^{n+1}\cong R\oplus L$ $\Ra$ \[\bigwedge^{n+1}(R^{n+1})=\bigoplus_{i=0}^{n+1}\bigg(\bigwedge^iR^n\bigg)\otimes_R\bigg(\bigwedge^{n+1-i}L\bigg).\]
+By fact 1,$R=\bigwedge^{n+1}(R^{n+1})$. Also we have $\bigwedge^1L=L$ and $\bigwedge^jL=(0)$ for all $j>1$. This implies that $R\cong R\otimes_RL\cong L$. What we need is proving $\bigwedge^j L=(0)$ for all $j>1$.
+\begin{lem}
+$R$ is a Noetherian ring, $M$ a finitely generated projective $R$-module of rank $n$. Then $\wedge^jM=0$ if $j>n$.
+\end{lem}
+\begin{proof}
+It is enough to show that $(\bigwedge^jM)_\frp=0$ for all $\frp\in\Spec(R)$. But since localization is exact and commutes with tensor product, we have $(\bigwedge^jM)_\frp=\bigwedge^j(M_\frp)$. $M_\frp$ is a finitely generated projective module over $R_\frp$ which is a Noetherian local ring. Hence it is free of rank $n$. By fact 1, we have $\bigwedge^j(M_\frp)=0$.
+\end{proof}
+This completes the proof.
+\end{proof}
+\end{proof}
+
+\textbf{Theme:} How to measure the obstruction for a projective module to be free.
+
+\textbf{Idea:} Grothendieck group, class group.
+
+Let $R$ be any ring (may not commutative).
+\begin{definition}
+The Grothendieck group $G_0(R)$ is the quotient of the free abelian group generated by symbols $[M]$, for each isomorphism class of a finitely generated $R$-modile $M$ by the subgroup generated by elements $[M]-[M_1]-[M_2]$ for each short exact sequence $0\ra M_1\ra M\ra M_2\ra 0$.
+\end{definition}
+\begin{definition}
+The Grothendieck group $K_0(R)$ is the quotient of the free abelian group generated by symbols $[P]$, for each isomorphism class of a finitely generated projective $R$-module $P$ by the subgroup generated by elements $[P]-[P_1]-[P_2]$ for each short exact sequence $0\ra P_1\ra P\ra P_2\ra 0$ where $P,P_1,P_2$ are projective.
+\end{definition}
+
+\textbf{Observation:} there exists a "forgetful" group homomorphism $\phi: K_0(R)\ra G_0(R)$ defined by $\phi([P])=[P]$.
+
+\begin{thm}
+Let $R$ be Noetherian ring (commutative) with finite dimension. Assume that $R$ is regular, i.e. $R_\frp$ is regular local for all $\frp\in\Spec(\frp)$. Then $\phi: K_0(R)\ra G_0(R)$ is an isomorphism (Poincare duality).
+\end{thm}
+\begin{proof}
+We should show that $\phi$ is surjective. Let $M$ be a finitely generated $R$-module, then $[M]\in G_0(R)$.
+
+\textbf{Claim:} $R$ is regular implies that there exists a finite projective resolution $\cdots0\ra P_n\ra \cdots\ra P_1\ra P_0\ra M\ra 0$.
+
+Assuming the claim, we see that in $G_0(R)$ we have $[M]=\sum_{i=0}^n(-1)^i[P_i]$. So $[M]\in\Image\phi$.
+
+\textbf{Proof of Claim:} For any $\frp\in \Spec (R)$, $R_\frp$ is a regular local ring, $\dim R_\frp=\height (\frp)\leq \dim R$. $M_\frp$ is a finitely generated $R_\frp$-module $\Ra$ $\pdim_{R_\frp}(M_\frp)<\infty$ (In fact, $\pdim_{R_\frp}(M_\frp)\leq\dim R_\frp\leq \dim R$) $\Ra$ for all finitely generated $R$-module $N$ and all $i>\dim R$ $0=\Ext_{R_\frp}^i(M_\frp,N_\frp)=\Ext_R^i(M,N)\otimes_RR_\frp$ $\Ra$ for all $i>\dim R$, $\Ext_R^i(M,N)=0$. Now write a resolution
+\[0\ra K_n=\ker \phi_{n-1}\ra F_{n-1}\xr{\phi_{n-1}}\cdots\ra F_1\ra F_0\ra M\ra 0\]
+where $F_i$ are free. Then we prove that $K_n$ is a projective $R$-module. We use the technique "dimension lift" to prove $\Ext_R^i(K_n,N)\cong \Ext_R^{i+n}(M,N)$.
+
+When $n=1$, $0\ra K_1\ra F_0\ra M\ra 0$ $\Ra$ $\Ext_R^i(M,N)\ra \Ext_R^i(F_0,N)\ra \Ext_R^i(K_1,N)\ra \Ext_R^{i+1}(M,N)\ra \Ext_R^{i+1}(F_0,N)$
+and $\Ext_R^i(F_0,N)=\Ext_R^{i+1}(F_0,N)=0$ since $F_0$ is free. This implies that $\Ext_R^1(K_1,N)=\Ext_R^2(M,N)$.
+
+When $n>1$, by induction hypothesis we have $\Ext_R^i(K_n,N)=\Ext_R^{i+1}(K_{n-1},N)=\Ext_R^{i+n}(M,N)$.
+
+If $n=\dim R$, then for all $i>0$ we have $\Ext_R^i(K_n,N)=0$ $\Ra$ $K_n$ is a projective $R$-module.
+
+In fact, our construction gives an inverse map $\psi: K_0(R)\ra G_0(R).$ So start with a finitely generated $R$-module $M$. Find a finite projective resolution \[0\ra P_n\ra P_{n-1}\ra \cdots\ra P_0\ra M\ra0.\] Set $\psi([M])=\sum(-1)^i[P_i]$ Need to check:
+\begin{enumerate}
+\item $\psi$ is well-defined, independent of choose of resolution.
+\item $\psi$ is additive.
+\end{enumerate}
+\end{proof}
+
+
+
+\begin{definition}
+The divisor group of $A$ is defined by $\Div (A):= \text{ the free abelian group with generators } [\frp]$ where $\frp$ is a prime of $A$ of height $1$ $= \{\sum_{\height{\frp}=1}n_\frp[\frp]| n_\frp\in \bb{Z}\}$.
+\end{definition}
+\textbf{Remark:} $A$ is $R1$ $\Ra$ for all $\frp$ with $\height (\frp)=1$, $A_\frp$ is regular of dimension $1$. So $\frm_\frp=(x_\frp)$ $\Ra$ we can define a valuation: $\nu_\frp: A_\frp-\{0\}\ra \bb{Z}_{\geq 0}$ by setting $\nu_\frp(a)=n$ where $(a)=(\frm_\frp)^n$.
+
+Given $0\neq f\in K=\Fr(A)$, $f=\frac{a}{b}$ where $a,b\in A,b\neq 0$. Define $\nu_\frp(f)=\nu_\frp(a)-\nu_\frp(b)$. $\divi(f):=\sum_{\height(\frp)=1}\nu_\frp(f)[\frp]\in \Div(A)$.
+\begin{definition}
+The divisor class group $\Cl(A)$ of $A$ is $\Div(A)/\{\divi(f)|f\in K\}$.
+\end{definition}
+\begin{ex}
+If $A$ is a UFD, then $\Cl(A)=0$. In fact, $A$ is UFD $\Leftrightarrow$ primes of height $1$ are principal. So $\height{\frp}=1$ $\Ra$ $\frp=(f)$ for some $f\in A$ $\Ra$ $\divi(f)=[\frp]$ $\Ra$ $\Cl(A)=0$.
+\end{ex}
+\begin{prop}
+If $A$ is a Noetherian normal domain with $\Cl(A)=0$, then $A$ is a UFD.
+\end{prop}
+\begin{proof}
+Recall that it is enough to prove that all primes of height $1$ are principal. So take $\frp$ with $\height(\frp)=1$. Consider $0=[\frp]\in\Cl(A)$  $\Ra$ $[\frp]=\divi(f)$ for some $f\in K^*$.
+\end{proof}
+
+\begin{ex}
+$A=k[x,y,z]/(xy-z^2)$ $k$ is a field. $A$ is complete intersection $\Ra$ $A$ is CM ring $\Ra$ $A$ is $S2$. and $A_\frp$ is regular for all primes $\frp$ except $\frp=(\bar{x},\bar{y},\bar{z})$ which is height $2$. So by Serre's criterion $A$ is normal. Hence $A$ is a Noetherian normal domain.
+\[A[\frac{1}{z}]=k[x,y,z]/(xy-z^2)[\frac{1}{z}]\cong k[y,z][\frac{1}{z}][\frac{1}{y}]\text{ is a UFD }\Ra \Cl(A[\frac{1}{z}])=0.\]
+
+Observe that every ideal $\frq$ correspond to an ideal of $A[\frac{1}{z}]$ if and only if $z\notin \frq$. If $\height\frq=1$ with $z\in \frq$ $\Ra$ $xy \in\frq$ $\Ra$
+\[ \left\{
+\begin{array}{ll}
+x\in\frq, \Ra (x,z)\su \frq \Ra \frq=(x,z)\\
+y\in\frq, \Ra (y,z)\su \frq \Ra \frq=(y,z)
+\end{array}
+\right.
+\]
+since $(x,z),(y,z)$ are prime ideals. Set $\frp_x=(x,z),\frp_y=(y,z)$. Since $\Cl(A[\frac{1}{z}])=0$ there exists $f\in K^*$ such that $\divi(f)=\sum\limits_{\frq\neq \frp_x,\frp_y}n_\frq [\frq]$. This implies that $[\frp_x],[\frp_y]$ generate $\Cl(A)$.
+
+Since $y\notin \frp_x$ $y$ is a unit in $A_{\frp_x}$. So by $xy=z^2$, we have that $\frp_xA_{\frp_x}=zA_{\frp_x}$. Similarly, $\frp_yA_{\frp_y}=zA_{\frp_y}$. So if $\frq=\frp_x,\frp_y$, then $\nu_{\frq}(z)=1$. If $\frq\neq \frp_x,\frp_y$, $z\notin \frq$ $\Ra$ $z\in A_\frq^*$ $\Ra$ $\nu_\frq(z)=0$. Hence $\divi(z)=[\frp_x]+[\frp_y]$ $\Ra$ $[\frp_x]+[\frp_y]=0$ in $\Cl(A)$. If $\frq\neq \frp_x$, $x\notin\frq$ $\Ra$ $\nu_\frq(x)=0$. If $\frq=\frp_x$, $x\in\frq$, then $\nu_{\frq}(x)=2$ since $xy=z^2$. Similarly, $\divi(y)=2[\frp_y]$. $\Ra$ $\Cl(A)$ is generated by $[\frp_x]+[\frp_y]=0$ and $2[\frp_x]=0$. This implies that $\Cl(A)$ is either trivial or isomorphic to $\bb{Z}/2\bb{Z}$. However, $\Cl(A)$ is not trivial since $A$ is not a UFD.
+\end{ex}
+
+\section{Flatness}
+\begin{prop}\label{prop:A}
+$M$ is a flat $R$-module if and only if $\Tor_i^R(M,N)=0$ for all $i>0$ for all $N$.
+\end{prop}
+\begin{prop}
+$M$ is a flat $R$-module if and only if $\Tor_i^R(R/I,M)=0$ for all finitely generated $I\su R$.
+\end{prop}
+\begin{proof}
+$"\Rightarrow"$ By proposition $(\ref{prop:A})$.
+
+$"\Leftarrow"$ For any finitely generated ideal $I\su R$, we have an exact sequence $0\ra I\ra R\ra R/I\ra 0$. Then $0=\Tor_1^R(R/I,M)\ra I\otimes_RM\ra M\ra M/IM\ra 0.$
+
+Goal: Show this implies: $N'\hookrightarrow N$ $\Ra$ $N'\otimes_RM\hookrightarrow N\otimes_RM$.
+
+For any ideal $I\su R$, $I\hookrightarrow R$. Tensoring with $M$, if there exists $\sum_ia_i\otimes m_i$ $a_i\in I$ such that $\sum a_im_i=0$. Let $I'=(a_1,\cdots,a_n)\su I$. Since $I'\otimes_RM\hookrightarrow M$ $\Ra$ $\sum a_i\otimes m_i=0$ in $I'\otimes_RM$. So $\sum a_i\otimes _i=0$ in $I\otimes_RM$. Hence $I\otimes_RM\hookrightarrow M$.
+
+Let $N'\hookrightarrow N$. By an argument as above, we can assume that $N',N$ are finitely generated.
+
+Consider $N/N'$ is generated by $n_1,\cdots,n_k\in N$ $\Ra$ $N'\su N_k\su\cdots \su N_1\su N$ such that for all $i$, $N_i/N_{i+1}$ is generated by single element $\Ra$ $R\ra N_i/N_{i+1}$ $\Ra$ $R/J_i\cong N_i/N_{i+1}$ for some ideal $J_i$. Now \[0\ra N_{i+1}\ra N_i\ra N_i/N_{i+1}=R/J_i\ra 0\] $\Ra$ $\Tor_1^R(R/J_i,M)\ra N_{i+1}\otimes_RM\ra N_i\otimes_RM$ for all $i$.
+
+Since we have $0\ra J\hookrightarrow R\ra R/J\ra 0$, $\Tor_1^R(R,M)\ra \Tor_1^R(R/J,M)\ra J\otimes_RM\ra M$.
+By the discussion above, $J\otimes_RM\hookrightarrow M$ and we have $\Tor_1^R(R,M)=0$, so $\Tor_1^R(R/J,M)=0$. Hence we have $N_{i+1}\otimes_RM\hookrightarrow N_i\otimes_RM$ for all $i$. This implies that $N'\otimes_RM\hookrightarrow N_i\otimes_RM$. This completes the proof.
+\end{proof}
+
+\begin{prop}
+Let $R$ be a Noetherian local ring, $\frm$ its maximal ideal and $k=R/\frm$. $M$ is a finitely generated $R$-module. Then $M$ is a flat $R$-module if and only if $\Tor_1^R(k,M)=0$.
+\end{prop}
+\begin{proof}
+$"\Leftarrow"$ Let $\ra F_1\xr{\phi_1} F_0=R^s\xr{\phi_0} M\ra 0$ be a minimal free resolution of $M$. Then $0=\Tor_1^R(k,M)=H_1(k\otimes_RF^{\bullet})=F_1/\frm F_1$. This implies that $F_1=0$, hence $M=F_0=R^s$ is free. Hence it is flat.
+\end{proof}
+
+\textbf{Some easy facts:}
+\begin{enumerate}
+\item $R$ is a ring and $x\in R$ is not a zero divisors in $R$. $M$ is a flat $R$-module. Then $x$ is not a zero divisor in $M$.
+\item $R$ is a P.I.D and $M$ is a $R$-module, then $M$ is flat if and only if $R$ has no $M$-zero divisors.
+\end{enumerate}
+
+"Important of flatness"
+
+\textbf{idea:} flatness gives the "correct" notion of algebraic family.
+
+\begin{ex}
+Let $k$ be a algebraic closed field, $A=k[t], B=k[x,y]$. Take $\phi: A\to B$ given $\phi(t)=xy$. $\Ra$ $\bb{A}_k^2=\Spec B\xr{\phi^*}\Spec A=\bb{A}_k^1$.
+\begin{align*}
+(\phi^*)\inv(a)&:=\{\frp\su B=k[x,y]|\frp\cap A=(t-a)\}\\
+&=\{\frp|\phi(t)-a\in \frp\}=\{\frp|xy-a\in\frp\}\\
+&=V((xy-a))=\Spec\big(k[x,y]/(xy-a)\big)
+\end{align*}
+This is a curve given by $xy-a$.
+If $a\neq 0$, then $xy=a$ is smooth. If $a=0$ $xy=0$ is not smooth. It is a good family of hyperbolas curve $xy=a\xr{a\to 0}xy=0$.
+
+Note that $\phi$ is flat, i.e. $B$ is flat $A$-module since $A$ is P.I.D. and $B$ has no zero divisors.
+\end{ex}
+
+\begin{ex}
+$A=k[t]\xr{\phi} B=k[t,x,y]/(t(x-1))$, we get $\phi^*: \Spec B\to \Spec A$
+\begin{align*}
+(\phi^*)\inv(a)&=V((t(x-1),t-a))\cong \Spec(B/(t-a))\\
+&\cong\Spec\big(k[t,x,y]/(t(x-1),t-a)\big)\\
+&\cong \Spec\big(k[x,y]/a(x-1)\big)
+\end{align*}
+If $a\neq 0$ then $\Spec\big(k[x,y]/a(x-1)\big)\cong \Spec(k[y])$
+If $a=0$ then $\Spec\big(k[x,y]/a(x-1)\big)\cong \Spec(k[x,y])$
+
+It is not a good family! $\phi$ is also not flat since $\phi(t)$ is a zero divisor.
+\end{ex}
+
+\begin{ex}
+Family of all plane curves of degree $d$.
+
+Let $f(x,y)=\sum_{i+j\leq d}a_{ij}x^iy^j$ where $a_{ij}\in k$. Let $C=\{(x,y)\in\bb{A}_k^2|f(x,y)=d\}$ and $B_{(a_{ij})}=k[x,y]/(f(x,y))$.
+Then we have \[A=k[(t_{ij})]_{\substack {0\leq i,j\leq d\\ i+j\leq d}}\xr{\phi} B=A[x,y]/\sum_{\substack{i+j\leq d\\ 0\leq i,j\leq d}}t_{ij}x^iy^j\]
+If $a_{ij}=0$ for all $i,j$, then $(\phi^*)\inv((a_{ij}))=\Spec B$. If $a_{ij}=0$ for all $i,j\neq 0$ and $a_{00}=1$, then $(\phi^*)\inv((a_{ij}))=\varnothing$.
+Hence this is not a good family.
+
+\textbf{Fact:} If we exclude all the $(a_{ij})$ for which $f(x,y)=0$ is not a curve of $\deg=d$, then the rest of the family is a "good family", i.e. the correspond homomorphism is flat.
+\end{ex}
+
+\begin{thm}[Local criterion of flatness]
+Let $(R,\frm), (S,\frn)$ be Noetherian local rings. $\phi: R\to S$ is a ring homomorphism such that $\phi(\frm)\su\frn$, $M$ is a finitely generated $S$-module. Then $M$ is a flat $R$-module if and only if $\Tor_1^R(R/\frm,M)=0$.
+\end{thm}
+
+\begin{cor}
+Assume in addition $0\neq x\in\frm$ is not a zero divisor in $R$, not a zero divisor in $M$. Then $M$ is a flat $R$-module if and only if $M/xM$ is a flat $R/xR$-module.
+\end{cor}
+\begin{proof}
+$"\Ra"$ -$\otimes_{R/xR}M/xM$ should be exact sequence of $R/xR$-module. If $N$ is $R/xR$-module, we can think of $N$ as an $R$-module. Since $M/xM=R/xR\otimes_RM$ $N\otimes_RM=(N\otimes_{R/xR}R/xR)\otimes_RM
+=N\otimes_{R/xR}(R/xR\otimes_RM)=N\otimes_{R/xR}M/xM.$
+
+$"\Leftarrow"$ First prove that $\Tor_1^{R/xR}(k,M/xM)=\Tor_1^R(k,M)$. Since $x$ is not a zero divisor, we have an exact sequence
+\[0\ra R\xr{x} R\ra R/(x)\ra 0.\]
+Hence we have a long exact sequence
+\begin{align*}
+\cdots&\ra \Tor_2^R(R,M)\ra \Tor_2^R(R/(x),M)\ra \Tor_1^R(R,M)\ra\Tor_1^R(R,M)\\
+&\Tor_1^R(R/(x),M)\ra R\otimes_RM=M\xr{x}\ra R\otimes_RM\ra R/(x)\otimes_RM\ra 0
+\end{align*}
+Since $R$ is a flat $R$-module, $\Tor_1^R(R,M)=\Tor_2^R(R,M)=\cdots=0$. This implies that $\Tor_i^R(R/(x),M)=0$ for all $i>1$ and for $i=1$, $\Tor_1^R(R,M)=0$ since $M\xr{x}M$ is injective. Next we calculate the $\Tor_i^R(k,M)$. Let $F^{\bullet}\ra M\ra 0$ be a free resolution. So $F^{\bullet}\otimes _Rk=(F^{\bullet}\otimes_RR/(x))\otimes_{R/(x)}k$. Now observe that $F^{\bullet}\otimes _RR/(x)\ra M\otimes_RR/(x)=M/xM\ra0$ is a free resolution of $M/xM$ as an $R/xR$-module.
+
+$\bullet$ $F^{\bullet}\otimes_RR/(x)$ are free $R/(x)$-modules.
+
+$\bullet$ $H_i(F^{\bullet}\otimes_RR/(x)):=\Tor_i^R(M,R/(x))$ for $i>0$. So $F^{\bullet}\otimes_RR/(x)$ is exact. We can use this free resolution to compute
+\[\Tor_I^{R/(x)}(k,M/xM)=H_i((F^{\bullet}\otimes_RR/(x))\otimes_{R/(x)}k)
+=H_i(F^{\bullet}\otimes_Rk)=\Tor_i^R(k,M).\]
+\end{proof}
+\begin{proof}[Proof of Theorem:]
+$"\Leftarrow"$ Assume that $\Tor_1^R(k,M)=0$, we want to prove that $M$ is a flat $R$-module. Let $I\su M$ be an ideal, it is enough to prove that $I\otimes_RM\ra M$ is injective. Let $u\in I\otimes_RM$ such that $u\mapsto 0$ in $M$. Observe that $I\otimes_RM$ is a finitely generated $S$-module since $M$ is a finitely generated $S$-module.
+
+Krull's intersection theorem says that
+\[\bigcap_{n\geq 1}\frn^n(I\otimes _RM)=0.\]
+Since $\phi(\frm)\su\frn$ we also have
+\[\bigcap_{n\geq 1}\frm^n(I\otimes _RM)=0.\]
+So it is enough to show that $u\in \frm^n(I\otimes_RM)\su I\otimes_RM$ for all $n\geq 1$. Moreover, we have
+\[\frm^n(I\otimes_RM)=\Image(\frm^nI\otimes_RM\ra I\otimes_RM).\]
+Artin-Rees lemma says that for $m>>0$, $\frm^m\cap I=\frm^nI$. So it is enough to show that $u\in \Image((\frm^m\cap I)\otimes_RM\ra I\otimes_RM)$ for all $m>>0$.
+
+Consider the exact sequence $0\ra \frm^m \cap I\ra I\ra I/\frm^m\cap I\ra 0$. Tensoring with $M$ over $R$, we have \[\Tor_1^R(I/I\cap\frm^m,M)\ra (\frm^m\cap I)\otimes_RM\ra I\otimes_RM\ra(I/\frm^m\cap I)\otimes_RM\ra 0.\]
+It is enough to show that $u=0$ in $(I/\frm^m\cap I)\otimes_RM$.
+
+Now look at
+\[
+\begin{tikzcd}
+I\otimes_RM \arrow{r}\arrow{d}      &I/\frm^m\cap I\otimes_RM\arrow{d}{\psi\otimes_RM} \\
+M\arrow{r}& R/\frm^m\otimes_RM
+\end{tikzcd}
+\]
+This diagram commutes and by assumption $u\in I\otimes_RM$ maps to $0\in M$. Hence it is enough to show $\psi\otimes_RM$ is injective.
+
+Next we show that for all $I\su R$ $t>>0$, $\Tor_1^R(R/I\cap \frm^t,M)=0$. In fact, we can show that for all finitely generated $R$-module with $\frm^tN=0$, $t>0$, $\Tor_1^R(N,M)=0$.
+
+Induction on $t$.
+
+When $t=1$, $\frm N=0$ $\Ra$ $N$ is $R/\frm$-module $\Ra$ $N\cong k^m$. Hence $\Tor_1^R(N,M)=\Tor_1^R(k^m,M)=0$.
+
+In general, Let $N'=\frm N\su N$, then $0\ra N'\hookrightarrow N\ra N/N'\ra 0$ and $\frm^{t-1}N'=0$, $\frm\cdot N/N'=0$. This implies that \[\Tor_1^R(N',M)\ra \Tor_1^R(N,M)\ra \Tor_1^R(N/N',M).\] By the induction hypothesis, $\Tor_1^R(N',M)=\Tor_1^R(N/N',M)=0$. Hence $\Tor_1^R(N,M)=0$.
+\end{proof}
+
+More general version of Theorem:
+\begin{thm}
+Let $A$ be a Noetherian ring, $I\su A$ be an ideal. $M$ is a $M$-module (not always finitely generated) such that for all ideal $J\su A$, $\cap I^n(J\otimes_AM)=0.$ Then TFAE:
+\begin{enumerate}
+\item $M$ is a flat $A$-module.
+\item $M/IM$ is a flat $A/I$-module and $\Tor_1^A(A/I,M)=0$.
+\item $\Tor_1^R(N,M)=0$ for all $A/I$-module $N$.
+\item $I^n/I^{n+1}\otimes_AM\cong I^nM/I^{n+1}M$.
+\end{enumerate}
+\end{thm}
+
+More about flat morphism, "preservation of dimension and depth".
+\begin{thm}
+Let $\phi: A\ra B$ be a flat homomorphism of Noetherian ring, then \[\dim (B_\frq)=\dim (A_\frp)+\dim (B_\frq\otimes_{A_\frp}k(\frp)).\]
+where $\Spec B\xr{\phi^*}\Spec A$ $\frq\mapsto \frp$, $k(\frp)=A_\frp/\frm_{\frp}$.
+\end{thm}
+\begin{thm}
+Let $\phi: A\ra B$ be a homomorphism of Noethereian local rings, $\frm\in A$, $\frn\in B$ its maximal ideals. $M$ is a finitely generated $A$-module and $N$ is a finitely generated $B$-module which is flat as an $A$-module. Then \[\depth_B(M\otimes_AN)=\depth_A(M)+\depth_{B\otimes k}(N\otimes k)\] where $k=A/\frm$.
+\end{thm}
+\begin{cor}
+Special case: when $M=A$ and $N=B$. Assuming $\phi$ is flat. Then we get $\depth(B)=\depth(A)+\depth(B\otimes_Ak)$.
+\end{cor}
+\begin{cor}
+$\phi: (A,\frm)\ra (b,frn)$ as before and $\phi$ is flat. Then $B$ is CM $\Leftrightarrow$ $A$ is CM and $B\otimes_Ak$ is CM.
+\end{cor}
+\begin{thm}
+$\phi: (A,\frm)\ra (B,\frn)$ as before.
+\begin{enumerate}
+\item $\phi$ is flat and $B$ is regular $\Rightarrow$ $A$ is regular.
+\item $A$ is regular and $B\otimes_Ak$ is regular. $\dim B=\dim A+\dim (B\otimes_Ak)$ $\Rightarrow$ $\phi$ is flat and $B$ is regular.
+\end{enumerate}
+\end{thm}
+
+
+\section{Derivations, Differentials and infinitesmal extensions}
+Let $B$ a commutative ring with $1$, $M$ a $B$-module.
+\begin{definition}
+A derivation $D: B\ra M$ is a map such that
+\begin{enumerate}
+\item $D(b+b')=D(b)+D(b')$ for all $b,b'\in B$.
+\item $D(bb')=bD(b')+b'D(b)$.
+\end{enumerate}
+\end{definition}
+Let $\Der(B,M)$ be the set of all derivations $B\ra M$.
+\begin{ex}
+$B=k[x_1,\cdots,x_n]$ ($k$ is a field), $M=B$. $D=\frac{\partial}{\partial x_i}: B\ra M=B$ is a derivation for all $i$.
+\end{ex}
+
+If $B$ is an $A$-algebra (via $\phi: A\ra B$). We say that the derivation $D: B\ra M$ is $A$-linear if $D(\phi(a)b)=\phi(a)D(b)$ for all $a\in A, b\in B$ ($\Leftrightarrow$ $D(\phi(a))=0$ for all $a\in A$).
+
+$\Der_A(B,M)=$ set of $A$-linear derivation $B\ra M$.
+
+If $D: B\ra M$ is a derivation ,then $D\inv(0)=\{b\in B|D(b)=0\}$ is a subring of $B$ is called the subring of "constants for $D$".
+
+\begin{ex}
+$p$ is a prime, $B$ is of character $p$, then $B=\{b^p|b\in B\}$ is a subring of $B$ and contained in the constant for any derivation $D: B\ra M$ because $D(b^p)=pb^{p-1}D(b)=0$.
+\end{ex}
+
+\textbf{Differentials:} Let $A,B$ be two commutative rings with $1$. $B$ is an $A$-algebra (via $\phi: A\ra B$).
+\begin{definition}
+The module of (Kahler) differentials $\Omega_{B/A}^1$ of $B$ over $A$ is the $B$-module generated by the set of symbols $\{db|b\in B\}$ subject to the relations
+\begin{enumerate}
+\item $d(b+b')=db+db'$.
+\item $d(bb')=bdb'+b'db$.
+\item $d(a)=0$ for all $a\in A$.
+\end{enumerate}
+\end{definition}
+\begin{prop}
+The map $d: B\ra \Omega_{B/A}^1$ given by $b\mapsto db$ is an $A$-linear derivation. In fact, it is the universal $A$-linear derivation. For each $B$-module $M$, there is a canonical $B$-module isomorphism.
+\end{prop}
+\begin{align*}
+\Hom_B(\Omega_{B/A}^1,M)&\ra \Der_A(B,M)\\
+\psi&\mapsto \psi\circ d=D
+\end{align*}
+\begin{proof}
+The map is well-defined, i.e. $D\in\Der_A(B,M)$.
+Starting with $D: B\ra M$, define $\psi$ by setting $\psi(\sum b_i'db_i)=\sum b_i'D(b_i)$, then $\psi\in \Hom_B(\Omega_{B/A}^1,M)$.
+\end{proof}
+
+\begin{ex}
+$B=A[x_1,\cdots,x_n]$, $\Omega_{B/A}^1=?$. $f=f(x_1,\cdots,x_n)\in B$
+$df=\sum_i\frac{\partial f}{\partial x_i}dx_i$.
+
+$\Ra$ $\Omega_{B/A}^1$ generated by $dx_1,\cdots,dx_n$.
+
+$\Ra$ $B^n=B dx_1\oplus\cdots\oplus Bdx_n\twoheadrightarrow \Omega_{B/A}^1$
+
+So $\Omega_{B/A}^1\cong B dx_1\oplus\cdots B dx_n.$
+
+???
+\end{ex}
+
+\text{Remark:} If $B$ is generated as an $A$-algebra by $f_1,\cdots,f_r\in B$, then $\Omega_{B/A}^1$ is generated as a $B$-module by $df_1,\cdots,df_r$.
+
+\subsection{Infimitesimal extensions}
+Let $C$ be a ring, $N\su C$ an ideal with $N^2=(0)$. Let $C'=C/N$, $N$ also can be viewed as a $C'$-module. Conversely, suppose $C'$ is a ring,
+\begin{definition}
+An infimitemal extension of $C'$ by a $C'$-module $N$ is a ring $C$ together with $\varepsilon: C\ra C'$, $i: N\hookrightarrow C$ such that
+\begin{enumerate}
+\item $\ker(\varepsilon)$ is an ideal of square zero in $C$.
+\item We have a $C'$-module exact sequence $0\ra N\xr{i}C\xr{\varepsilon}C'\ra0$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Two extensions $(C,\varepsilon,i),(C_1,\varepsilon_1,i_1)$ of $C'$ by $N$ are isomorphic if there exist a ring isomorphism $\phi: C\ra C_1$ such that the diagram:
+
+\begin{center}
+\begin{tikzcd}
+0\arrow[r] &N\arrow[r, "i"]\arrow[d, equal]&C\arrow[r, "\varepsilon"]\arrow[ d, "\phi"] &C'\arrow[r]\arrow[d, equal]&0\\
+0\arrow[r] &N\arrow[r, "i_1"]&C_1\arrow[r, "\varepsilon_1"] &C'\arrow[r]&0
+\end{tikzcd}
+\end{center}
+commutes.
+\end{definition}
+
+\textbf{Relation with derivations: } Let $A,C$ be two rings, $N\su C$ an ideal with $N^2=(0)$. $\pi: C\ra C/N$ is the natural map. Suppose $u,u': A\ra C$ are two ring homomorphism such that $\pi\circ u=\pi\circ u'$. Consider $D: A\ra N$ given by $D=u'-u$.
+
+\textbf{Claim: }$D=u'-u$ is a derivation.
+
+\begin{align*}
+&u'(a_1a_2)=u'(a_1)u'(a_2)=(u(a_1)+D(a_1))(u(a_2)+D(a_2))\\
+=&u(a_1a_2)+u(a_1)D(a_2)+u(a_2)D(a_1)+D(a_1)D(a_2)
+\end{align*}
+$\Ra$ $D(a_1a_2)=u(a_1)D(a_2)+u(a_2)D(a_1)$.
+
+\textbf{Relation to differentials: }Let $k$ be a ring. $A$ is a $K$-algebra. Consider $B=A\otimes_kA$, it is also a $k$-algebra. Let $\lambda_1,\lambda_2: A\ra A\otimes_kA$ defined by $\lambda_1(a)=a\otimes1$, $\lambda_2(a)=1\otimes a$. Let $\mu: A\otimes_kA\ra A$ given by $\mu(a\otimes a')=aa'$. Consider $A\otimes_kA$ as an $A$-algebra via $\lambda_1$. Set $I=\ker(\mu)$ and consider $I/I^2\su B/I^2$, we have an exact sequence $0\ra I/I^2\ra B/I^2\xr{\mu}A\ra0$. Observe:
+\begin{tikzcd}
+A\arrow[rrr, shift left, "\overline{\lambda_1}=\lambda_1\pmod{I^2}"]\arrow[rrr, shift right, "\overline{\lambda_2}=\lambda_2\pmod{I^2}"'] & & & B/I^2\arrow[r, "\mu"]&A
+\end{tikzcd}
+$\Ra$ $d': A\ra N=I/I^2$ given by $d'=\overline{\lambda_2}-\overline{\lambda_2}$ is a derivation. Hence we get $\phi: \Omega_{A/k}^1\ra I/I^2$ such that
+
+\begin{center}
+\begin{tikzcd}
+&\Omega_{A/k}^1\arrow[r,"\phi"] &I/I^2\\
+&A\arrow[u,"d"]\arrow[ur,"d'"]
+\end{tikzcd}
+\end{center}
+commutes where $\phi(da)=(1\otimes a-a\otimes 1)\pmod{I^2}$.
+
+\begin{thm}
+$\phi: \Omega_{A/k}^1\ra I/I^2$ is an $A$-module isomorphism.
+\end{thm}
+\begin{proof}
+It is enough to show that $d': A\ra I/I^2$ is a universal $k$-linear derivation. Let's start with a $k$-linear derivation $D: A\ra M$ where $M$ is an $A$-module, then we want to show that there is unique $A$-linear $f:I/I^2\ra M$ such that $D=f\circ d'$, i.e. the diagram
+\begin{center}
+\begin{tikzcd}[column sep=small]
+I/I^2\arrow{rr}{f}& &M\\
+&A\arrow[ul,"d'"]\arrow[ur,"D'"]&
+\end{tikzcd}
+\end{center}
+We define $\psi: A\otimes_kA\ra A\ast M$ by $\psi(x\otimes y)=(xy,xDy)$, where $A\ast M$ is the trivial extension of $A$ by $N$, then $\psi$ is a homomorphism of $k$-algebras and if $\sum x_i\otimes y_i\in\ker \mu=I$ $\Ra$ $\psi(\sum x_i\otimes y_i)=(0,\sum x_iDy_i)$. Hence $\psi$ maps $I$ into $M$. By calculating directly, $\psi$ maps $I^2$ to $0$. So we get $f: I/I^2\ra M$. For $a\in A$, we have $f(da)=f(1\otimes a-a\otimes 1\pmod{I^2})=\psi(1\otimes a)-\psi(a\otimes 1)=D(a)-aD(1)=D(a)$. So $\psi$ is the inverse of $\phi$.
+\end{proof}
+
+\begin{thm}
+Let $k$ be a ring. $A$ is a $k$-algebra, $J\su A$ an ideal. $B=A/J$ is also a $k$-algebra. There is an exact sequence of $B$-modules
+\begin{align*}
+J/J^2&\xr{\delta}B\otimes_A\Omega_{A/k}^1\ra \Omega_{B/k}^1\ra 0.\\
+x&\mapsto 1\otimes dx \\
+& \qquad \qquad b\otimes da\mapsto bda
+\end{align*}
+$\delta$ is well-defined since for any $x,y\in J$, $xy\in J$, $1\otimes d(xy)=1\otimes (xdy+ydx)=x\otimes dy+y\otimes dx=0$. The last equality holds just because $x,y\in J$ equal to $0$ in $B=A/J$.
+
+The homomorphism $\delta$ has a left inverse if and only if the extension $0\ra J/J^2\ra A/J^2\ra B\ra 0$ of the $k$-algebra $B$ by $J/J^2$ is trivial over $k$.
+\end{thm}
+\begin{proof}
+Obviously, $B\otimes_A\Omega_{B/k}^1\ra \Omega_{B/k}^1$ is surjective. $\Omega_{B/k}^1$ is generated as $B$-module by $d\bar{a}, \bar{a}\in B$ $\bar{a}=a\pmod{J}$.
+
+$\bullet$ $J/J^2\xr{0}\Omega_{B/k}^1$.
+
+Let's show that $J/J^2\ra B\otimes_A\Omega_{A/k}^1\ra \Omega_{B/k}^1$ is exact. It is enough to show that for any $B$-module $M$ the resulting sequence
+\[\Hom_B(J/J^2,M)\la\Hom_B(B\otimes_A\Omega_{B/k}^1,M)\la\Hom_B(\Omega_{B/k}^1,M)\]
+is exact. Using the universal property of differential:
+\[\Hom_B(\Omega_{B/k}^1,M)=\Der_k(B,M)\]
+\[\Hom_B(B\otimes_A\Omega_{A/k}^1,M)=\Hom_A(\Omega_{A/k}^1,M)=\Der(A,M).\]
+The exactness is obvious.
+\end{proof}
+
+\textbf{Applications: } Let $A$ be a finitely generated $k$-algebra, i.e. $\ker{\phi}=J\hookrightarrow k[x_1,\cdots,x_n]\xr{\phi}A\ra 0$. Next we calculate $\Omega_{A/k}^1$.
+
+By the proposition above, we have an exact
+\begin{align*}
+J/J^2\xr{\delta}A\otimes_{k[\underline{x}]}\Omega_{k[x_1,\cdots,x_n]/k}^1\ra\Omega_{A/k}^1\ra0
+\Ra \Omega_{A/k}^1\cong \bigoplus_{i=1}^nAdx_i/\langle df|f\in J\rangle
+\end{align*}
+
+Two extra facts: Consider $A_1=A/J^2$, $B=A/J$. We have \[0\ra J/J^2\ra A_1=A/J^2\ra A/J=B\ra 0.\] $J/J^2$ is square $0$ ideal of $A_1$. It is an infinitesimal extension of $B$.
+
+We have \begin{equation}
+B\otimes _A\Omega_{A/k}^1\cong B\otimes_{A_1}\Omega_{A_1/k}^1.\label{eq:F}
+\end{equation}
+
+To show $(\ref{eq:F})$ it is enough to show that for any $B$-module $M$, \[\Hom_B(B\otimes_A\Omega_{A/k}^1,M)\cong \Hom_B(B\otimes_{A_1}\Omega_{A_1/k}^1,M).\] On the other hand, \[\Hom_B(B\otimes_A\Omega_{A/k}^1,M)=\Hom_A(\Omega_{A/k}^1,M)=\Der_k(A,M),\]
+\[\Hom_B(B\otimes_{A_1}\Omega_{A_1/k}^1,M)=\Hom_{A_1}(\Omega_{A_1/k}^1,M)=\Der_k(A_1,M).\]
+Since we have $A\twoheadrightarrow A_1\xr{D}M$, we get a map $\Der(A_1,M)\ra \Der(A,M)$. Conversely, if $D:A\ra D$ is $k$-linear derivation. Moreover we have $D(J^2)=JD(J)+JD(J)$ and $J\cdot M=0$. Hence we get $\Der(A,M)\ra\Der(A_1,M)$.
+
+\begin{thm}
+Let $k\xr{f} A\xr{g} B$ be two ring homomorphisms, then we have an exact sequence:
+\begin{align*}
+\Omega_{A/k}\otimes_AB&\xr{\alpha}\Omega_{B/k}\xr{\beta}\Omega_{B/A}\ra0\\
+d_{A/k}a\otimes b&\mapsto bd_{B/k}g(a)\\
+&\qquad d_{B/k}b\mapsto d_{B/A}b
+\end{align*}
+Moreover, the map $\alpha$ has a left inverse if and only any derivation of $A$ over $k$ into any $B$-module $T$ can be extended to a derivation $B\ra T$.
+\end{thm}
+\begin{proof}
+It is enough to prove that for any $B$-module $T$, the sequence
+\[\Hom_B(\Omega_{A/k}\otimes_AB,T)\la\Hom_B(\Omega_{B/k},T)\la\Hom_B(\Omega_{B/A},T)\la0\]
+is exact.
+Moreover, we have \[\Hom_B(\Omega_{A/k}\otimes_AB,T)=\Hom_A(\Omega_{A/k},T)=\Der_k(A,T)\]
+\[\Hom_B(\Omega_{B/k},T)=\Der_k(B,T)\]
+\[\Hom_B(\Omega_{B/A}=\Der_A(B,T).\]
+The sequence
+\[\Der_k(A,T)\la\Der_k(B,T)\la\Der_A(B,T)\la0\]
+is obviously exact.
+
+A homomorphism of $B$-modules $M'\ra M$ has a left inverse if and only if the induced map $\Hom_B(M',T)\la\Hom_B(M,T)$ is surjective for any $B$-module $T$. Thus $\alpha$ has a left inverse if and only if the natural map $\Der_k(A,T)\la\Der_k(B,T)$ is surjective for any $B$-module $T$.
+\end{proof}
+
+\begin{cor}
+The map $\alpha: \Omega_{A/k}\otimes_AB\ra \Omega_{B/k}$ is an isomorphism if and only if any derivation of $A$ over $k$ into any $B$-module $T$ can be extended uniquely to a derivation $B\ra T$.
+\end{cor}
+
+\begin{ex}
+Let $L/K$ be a field extension.
+\begin{enumerate}
+\item If $L/K$ is algebraic separable, then $\Omega_{L/K}^1=0$.
+\begin{proof}
+By the assumption, there is $\alpha\in L$ and $0\neq f\in K[x]$ such that $f(\alpha)=0$, $f'(\alpha)\neq 0$. Then $0=d(f(\alpha))=f'(\alpha)d\alpha$. Hence $d\alpha=0$ since $f'(\alpha)\neq0$.
+\end{proof}
+\item If $\chara K=p>0$, $K=L^p\su L$, then what is $\Omega_{L/K}^1$? Consider $x\in L$, $\beta=\alpha^p\in K$, then $\alpha$ is a root of $x^p-\beta\in K[x]$. If $\alpha\notin K$, then $x^p-\beta$ is the minimal polynomial of $\alpha$. So $K[x]/(x^p-\beta)\cong K(\alpha)\su L$. By the application above, we have
+    \[\Omega_{K(\alpha)/K}=\Omega_{(K[x]/(x^p-\beta))/K}=K(\alpha)dx/(d(x^p-\beta))\]
+    $d(x^p-\beta)=px^{p-1}dx-d\beta=0$. Hence $\dim_{K(\alpha)}\Omega_{K(\alpha)/K}^1=1$.
+\end{enumerate}
+\end{ex}
+
+\text{Additional Facts:}
+3)."Base Change"
+If we have a commutative diagram:
+\begin{center}
+\begin{tikzcd}
+&A\arrow[r] &A\otimes_kk'=A'\\
+&k\arrow[u]\arrow[r]&k'\arrow[u]
+\end{tikzcd}
+\end{center}
+then
+\begin{align*}
+\Omega_{A/k}^1\otimes_AA'=\Omega_{A/k}\otimes_kk'&\cong \Omega_{A'/k'}^1\\
+da\otimes k'&\mapsto d(a\otimes k')
+\end{align*}
+\begin{proof}
+It is enough to prove that for any $A'$-module $M$, we have the isomorphism: \[\Hom_{A'}(\Omega_{A/k}\otimes_AA',M)\cong \Hom_{A'}(\Omega_{A'/k'},M).\]
+On the other hand, we have $\Hom_{A'}(\Omega_{A/k}\otimes_AA',M)=\Hom_A(\Omega_{A/k},M)\cong \Der_k(A,M)$ and $\Hom_{A'}(\Omega_{A'/k'},M)\cong \Der_{k'}(A\otimes_kk', M)$. By computing directly, we have $\Der_k(A,M)\cong\Der_{k'}(A\otimes_kk', M)$.
+\end{proof}
+
+4)."Localization": Let $S\su A$ be a multiple subset, then $k\ra A\ra S\inv A$.
+\[\Omega_{S\inv A/k}^1\cong \Omega_{A/k}^1\otimes_AS\inv A=S\inv \Omega_{A/k}^1.\]
+\begin{proof}
+For any $S\inv A$-module $M$, we have an isomorphism:
+\[\Der_k(S\inv A,M)\cong\Der_k(A,M).\]
+Hence $\Hom_{S\inv A}(\Omega_{A/k}\otimes_AS\inv A,M)\cong \Hom_{S\inv A}(\Omega_{S\inv A/k},M)$. This proves the fact.
+\end{proof}
+
+Recall "transcendence basis" and "transcendence degree" for $L/K$ field extension. $\{x_i\}_{i\in I}\su L$ is a transcendence basis if and only if $L/K(\{x_i\}_{i\in I}$ is algebraic. $\trdeg=\# (\{x_i\}_{i\in I})$.
+
+\begin{thm}
+Let $k\leq K\leq L$ be field extension. Assume $L/K$ is finitely generated field extension. Then
+\begin{enumerate}
+\item $\dim_L(\Omega_{L/k}^1)\geq \dim_K(\Omega_{K/k}^1)+\trdeg(L/K).$ Equality holds if $L/K$ is separably generated.
+\item If $L/k$ is a finitely generated field extension, then $\dim_L(\Omega_{L/k}^1)\geq\trdeg(L/k)$, and equality holds if and only if $L/k$ is separably generated.
+\end{enumerate}
+\end{thm}
+\begin{cor}
+If $L/K$ is finitely generated, then $\Omega_{L/K}^1=0$ if and only if $L/K$ is separable and algebraic.
+\end{cor}
+\begin{proof}
+Without loss of generality, suppose that $L$ is generated by one element, say $L=K(t)$.
+
+Case 1: $t$ is transcendence over $K$. We have $k\ra A=K\ra B=K[t]$ $\Ra$ $K[t]\otimes_K\Omega_{K/k}^1\ra \Omega_{K[t]/k}^1\ra\Omega_{K[t]/k}^1\ra 0$.
+Let $D: K\ra M$ be a derivation, $M$ is a $K[t]$-module, we can extends it to $\tilde{D}: K[t]\ra M$. This is OK by \[\tilde{D}(k_nt^n+\cdots+k_1t+k_0)=D(k_n)t^n+\cdots+D(k_0).\]
+Hence the map $\Omega_{A/k}\otimes_AB\ra \Omega_{B/k}$ has a left inverse, then
+\begin{equation}
+\Omega_{K[t]/k}^1\cong (\Omega_{K/k}^1\otimes_KK[t])\oplus K[t]dt.\label{eq:G}
+\end{equation}
+since $\Omega_{K[t]/k}^1\cong K[t]dt$. $L=K(t)=(K[t]-0)\inv K[t]$. Then we get $\Omega_{L/K}^1\cong (\Omega_{K/k}^1\otimes_KL)\oplus Ldt$ $\Ra$ $\dim_L\Omega_{L/k}^1=\dim_K\Omega_{K/k}^1+1.$
+
+Case 2: $t$ is algebraic and separable. Then $L=K(t)\cong K[x]/(f(x))$ where $f(t)=0, f'(t)\neq 0$. Applying $(\ref{eq:G})$ for $"t=x"$ we have $\Omega_{K[x]/k}^1\cong (\Omega_{K/k}^1\otimes_kK[x])\oplus K[x]dx$. Applying the formula of Prop. 8 to $k\ra A=k[x]\ra B=L=K[x]/(f(x))$ we have
+\begin{align*}
+&\Omega_{L/K}^1\cong (\Omega_{K[x]/k}^1)\otimes_{K[x]}L/<\delta(f(x))>\\
+=&(\Omega_{K/k}^1\otimes_KL)\oplus Ldt/<\tilde{d}(f)(t),f'(t)dt>\cong \Omega_{K/k}^1\otimes_KL
+\end{align*}
+$\Ra$ $\dim_L\Omega_{L/k}^1=\dim_K(\Omega_{K/k}^1)+0$.
+
+Case 3: $t$ is algebraic but not separable. Then $t^p=a\in K$. If $da=0$ in $\Omega_{K/k}^1.$ Then $L\cong K[x]/(x^p-a)$, repeat the argument in case $2$, $\Omega_{L/k}^1\cong \Omega_{K[x]/k}^1\otimes_{K[x]}L/<\delta(x^p-a)>$. But $\delta(x^p-a)=\widetilde{(x^p-a)}+(x^p-a)'dx=0$ $\Ra$ $\Omega_{L/k}^1=\Omega_{K/k}^1\oplus Ldt$ $\Ra$ $\dim_L\Omega_{L/k}^1=\dim_K\Omega_{K/k}^1+1.$
+
+Case 4: Same as in case 3, but $da\neq 0$. $\delta(x^p-a)=da\oplus pt^{p-1}dt=da\oplus0$. If $da\neq 0$, then $\dim_L\Omega_{L/k}^1=\dim_K\Omega_{K/k}^1$.
+
+Proof of 2). Applying 1) to $k=K$ we have $\dim_L\Omega_{L/k}^1\geq \dim_K\Omega_{K/k}^1+\trdeg L/k=\trdeg L/k$. Hence if $L/k$ separable generated, then the equality holds.
+
+It remains to show that if $\dim_L\Omega_{L/k}^1=\trdeg L/k$ and $L/k$ is finitely generated, then $L/k$ is separable generated.
+
+Let $n=\trdeg L/k$.
+
+When $n=0$. Since $L/k$ algebraic and finitely generated, $L/k$ is finite extension. Assuming that $\Omega_{L/k}^1=0$, by 1), for any extension $K$, $k\su K\su L$, we have $\Omega_{K/k}^1=0$. Since we have exact sequence $\Omega_{L/k}^1\ra\Omega_{L/K}^1\ra0$, $\Omega_{L/K}=0$.
+
+Applying the argument in the proof of 1) to all intermediate simple extension between $k$ and $L$. Since all $\Omega_{K/k}^1=0$ for these extensions and $\dim_L\Omega_{L/k}^1=0$, we know that case $1$, $3$ and $4$ don't occur. This implies that only case $2$ is possible. Hence $L$ is separably algebraic over $k$.
+
+In general, if $n>0$, suppose $\dim_L\Omega_{L/k}^1=n=\trdeg L/k$. Let $a_1,\cdots,a_n\in L$ such that $da_1,\cdots,da_n$ is a basis of $\Omega_{L/k}^1$. This implies that $\Omega_{L/k(a_1,\cdots,a_n)}=0$ since the sequence $\Omega_{L/k}^1\ra\Omega_{L/k(a_1,\cdots,a_n)}^1\ra 0$ is exact and the basis $da_1,\cdots,da_n$ of $\Omega_{L/k}^1$ are map to $0$ in $\Omega_{L/k(a_1,\cdots,a_n)}^1$. Hence $\trdeg(L/k(a_1,\cdots,a_n)\leq \dim_L\Omega_{L/k(a_1,\cdots,a_n)}^1=0$, i.e. $L/k(a_1,\cdots,a_n)$ is algebraic. Applying the case $n=0$ to the extension, we know that $L/k(a_1,\cdots,a_n)$ is separable. Hence $L/k$ is separably generated.
+\end{proof}
+
+\begin{cor}
+If $L/K$ is finite extension, then $L/k$ is separable if and only if $\Omega_{L/k}^1=0$.
+\end{cor}
+
+Another useful observation: $L/k$ finite extension.
+\begin{lem}
+$L/k$ is separable if and only if for any field extension $k'/k$, $L\otimes_kk'$ is reduced if and only if $L\otimes_k\bar{k}$ is reduced where $\bar{k}$ is the algebraic closure of $k$.
+\end{lem}
+\begin{proof}
+$"\Ra"$ $L/k$ finite separable $\Ra$ $L=k(t)\cong k[x]/(f(x))$ where $f(x)$ irreducible in $k[x]$ and $f(t)=0,f'(t)\neq 0$. Let $\bar{k}$ be the algebraic closure of $k$, then $f(x)$ factor in $\bar{k}[x]$ as a product of distinct linear factors. Let $k'/k$ be any extension, $L\otimes_kk'\cong k[x]/(f(x))\otimes_kk'\cong k'[x]/(f(x))$ $\Ra$ $f(x)$ has no multiple irreducible factors in $k'[x]$ $\Ra$ $L\otimes_kk'$ is reduced.
+
+$"\Leftarrow"$ Assume that $L/k$ is not separable. In this case, $\chara k=p>0$. Then there exists $t\in L\de k$  such that $a=t^p\in k$. Consider $k(t)\hookrightarrow L$, tensoring with $k'$, $k(t)\otimes_kk'\hookrightarrow L\otimes_kk'$ $\Ra$ $k(t)\otimes_kk'$ is reduced for any $k'/k$. But for $k'=k(t)$, we get
+\begin{align*}
+k(t)\otimes_kk(t)\cong k[x]/(x^p-a)\otimes_kk[y]/(y^p-a)\cong k[t][y]/(y^p-t^p)=k[t][y]/((y-t)^p)
+\end{align*}
+is not reduced.
+
+If we take $k'=\bar{k}$, then $k(t)\otimes_k\bar{k}=\bar{k}(t)=\bar{k}[x]/(x^p-a)=\bar{k}[x]/((x-t)^p)$ which is not reduced.
+\end{proof}
+
+\section{Jacobian criteria for regularity}
+\textbf{Some Notations:} $k$ is a field. $A=k[x_1,\cdots,x_n]$ is the polynomial ring, $I=(f_1,\cdots,f_s)\su A$ an ideal. $\frp$ is a prime ideal of $A$ containing $I$. $B=A/I$, $\frq=\frp/I$ a prime ideal of $B$. $m=\dim(A_\frp)=\height(\frp)$, $r=\height(IA_\frp)$, then $m-r=\dim(B_\frq)$.
+
+\textbf{Goal:} we want to build a criteria for $B_\frq$ to be a regular local ring.
+
+\begin{thm}
+Consider the "Jacobian matrix" of formal partial derivation: \[\caJ=\bigg(\frac{\partial f_i}{\partial x_j}\bigg)_{\substack{1\leq i\leq s\\ 1\leq j\leq n}}\] and look at $\caJ\pmod{\frp}\in M_{s\times n}(k[x_1,\cdots,x_n]/\frp)\su M_{s\times n}(k(\frp))$ where $k(\frp)$ is the residue field of $A_\frp$. Then
+\begin{enumerate}
+\item If $\rk(\caJ\pmod{\frp})=r$, then $B_\frq$ is regular.
+\item If $k$ is perfect, then the converse of 1) is also true.
+\end{enumerate}
+\end{thm}
+\begin{proof}
+1). Since $\dim(B_\frq)=m-r$, we need to prove $\dim_{k(\frq)}\frm_\frq/\frm_\frq^2=m-r$. $(B_\frq=A_\frp/IA_\frp\supseteqq \frm_\frq=\frq B-\frq=\frp A_\frp/IA_\frp)$. $k(\frq)=B_\frq/\frm_\frq=A_\frp/\frp A_\frp=k(\frp)$.
+
+Since $\frm_\frq/\frm_\frq^2=\frq B_\frq/\frq^2B_\frq\cong \frq/\frq^2\otimes_Ak(\frq)$ and $\frq/\frq^2\cong (\frp/I)/(\frp/I)^2\cong \frp/(I+\frp^2)$, we have $\frm_\frq/\frm_\frq^2\cong \frp/(I+\frp^2)\otimes_Ak(\frp)$.
+
+Consider the exact sequence:
+\[0\ra (I+\frp^2/\frp^2\ra\frp/\frp^2\ra\frp/(I+\frp^2)\ra0.\]
+Tensoring with $k(\frp)$ over $A$, we have
+\[0\ra (I+\frp^2/\frp^2\otimes_Ak(\frp)\ra\frp/\frp^2\otimes_Ak(\frp)\ra\frp/(I+\frp^2)\otimes_Ak(\frp)\ra0.\]
+Since $\frp/\frp^2\otimes_Ak(\frp)=\frm_\frp/\frm_\frp^2$ and $(A_\frp,\frm_\frp)$ is a regular local ring of dimension $m$, $\rk_{k(\frp)}(\frp/\frp^2\otimes_Ak(\frp))=m$.
+
+Recall that $\rk_{k(\frq)}\frm_\frq/\frm_\frq^2\geq\dim(B_\frq)=m-r$ with equality if and only if $B_\frq$ is regular. So we get $\rk_{k(\frq)}((\frp/(I+\frp^2))\otimes_Ak(\frp))\geq m-r$ with equality if and only if $B_\frq$ is regular. Using the exact sequence above we have
+\[m-\rk_{k(\frp)}((I+\frp^2/\frp^2)\otimes_Ak(\frp))\geq m-r\]
+with equality if and only if $B_\frq$ is regular. we get
+\[\rk_{k(\frp)}((I+\frp^2/\frp^2)\otimes_Ak(\frp))\leq r\]
+with equality if and only if $B_\frq$ is regular. Observe that $\rk_{k(\frp)}((I+\frp^2/\frp^2)\otimes_Ak(\frp))$ is the image of
+\[\phi:I/I^2\otimes_Ak(\frp)\ra\frp/\frp^2\otimes_Ak(\frp).\]
+
+Recall that $K=k(\frp)=k(\frq)$,
+\[\frp/\frp^2\otimes_{A_\frp}K\xr{\delta}\Omega_{A_\frp/k}^1\otimes_{A_\frp}K\ra \Omega_{K/k}^1\ra0.\]
+$(J/J^2\xr{\delta}\Omega_{A/k}^1\otimes_AB\ra\Omega_{B/k}^1\ra 0, B=A/J)$
+\[\Ra I/I^2\otimes_AK\xr{\phi}\frp/\frp^2\otimes_AK\xr{\delta}\Omega_{A_\frp/k}
+\otimes_{A_\frp}K.\]
+By the discussion above, $\Omega_{A_\frp/k}\otimes_{A_\frp}K=K\otimes_{A_\frp}(A_\frp dx_1\oplus \cdots \oplus A_\frp dx_n)=K dx_1\oplus\cdots\oplus K dx_n$.
+This composition $\delta\circ\phi$ is given by
+\[\caJ=\bigg(\frac{\partial f_i}{\partial x_j}\bigg)\]
+and is equal to $\caJ\pmod{\frp}\in M_{s\times n}(K)$. So $\rk(\Image(\delta\circ \phi))=\rk(\caJ \pmod{\frp})$. So if $\rk(\caJ\pmod{\frp})=r$, since $\Image(\phi)\leq r$ by before, we get that $\Image(\phi)=r$.
+
+2).$\bullet$ $\B_\frq$ is regular $\Ra$ $\rk_K\frm_\frp/\frm_\frp^2=m-r$ $\Ra$ $\rk(\Image(\phi))=r$.
+
+$\bullet$ If $K/k$ is separable generated, then $\Omega_{K/k}^1=\trdeg(K/k)=\dim(A/\frp)=n-m$ since $K=A_\frp/\frp A_\frp=\Fr(A/\frp)$.
+
+Now 2) follows:
+\[\frp A_\frp/\frp^2 A_\frp\xr{\delta}\Omega_{A_\frp/k}^1\otimes_{A_\frp}K\ra\Omega_{K/k}^1\ra 0\]
+Since $\frp A_\frp/\frp^2 A_\frp=\frm_\frp/\frm_\frp^2$ is of dimension $m$, $\Omega_{A_\frp/k}^1\otimes_{A_\frp}K$ of dimension $n$, $\Omega_{K/k}^1$ of dimension $n-m$, by the dimension counting, $\delta$ is injective $\Ra$ $\rk(\delta\circ \phi)=\rk(\phi)$.
+\end{proof}
+
+
+
+\begin{lem}\label{lem:H}
+Let $R$ be a Noetherian local domain with $L=\Fr(R)$, $M$ be a finitely generated $R$-module. $k=R/\frm$. Then
+\[\dim_L(M\otimes_RL)=\dim_k(M\otimes_Rk)\]
+if and only if $M$ is free $R$-module.
+\end{lem}
+
+
+\begin{prop}
+Suppose $R$ is a local Noetherian domain which is localization of a finitely generated $k$-algebra. $k$ is a perfect field. Assume that the residue field $R/\frm$ is $k$, then
+\[R\text{ is regular }\Leftrightarrow \Omega_{R/k}^1 \text{ is a free $R$-module of rank }=\dim R.\]
+\end{prop}
+\textbf{Remark: }our hypothesis says
+\begin{tikzcd}
+&k\arrow[rrr, bend left, "id"] \arrow[r]&R\arrow[r] &R/\frm\arrow[r, equal] &k
+\end{tikzcd}
+\begin{proof}
+Set $K=\Fr(R)$
+
+$\bullet$ $\Omega_{R/k}\otimes_RK\cong \Omega_{K/k}^1$ and $\rk_K\Omega_{K/k}^1=\trdeg(K/k)=\dim R$ since $K/k$ is separably generated.
+
+$\bullet$ we have an exact sequence:
+\[\frm/\frm^2\xr{\delta}\Omega_{R/k}^1\otimes_RR/\frm\ra \Omega_{k/k}^1=0\ra0.\]
+This implies that $\delta: \frm/\frm^2\ra \Omega_{R/k}^1\otimes_RR/\frm$ is surjective.
+\begin{lem}
+$\delta: \frm/\frm^2\ra \Omega_{R/k}^1\otimes_RR/\frm$ is an isomorphism of $k$-vector space.
+\end{lem}
+\begin{proof}
+We only need to prove that $\delta$ is injective. It is enough to prove that the dual
+\[\Hom_k(\Omega_{R/k}^1\otimes_Rk,k)\ra\Hom_k(\frm/\frm^2,k)\]
+is surjective. Moreover, we have $\Hom_k(\Omega_{R/k}^1\otimes_Rk,k)=\Hom_R(\Omega_{R/k}^1,k)=\Der_k(R,k)$. The map $\Der_k(R,k)\ra \Hom_k(\frm/\frm^2,k)$ is just given by $D\mapsto D|_\frm$. This is well-defined since $D(\frm^2)=0$. So it is enough to show that given a $k$-linear homomorphism $\lambda: \frm/\frm^2\ra k$ there exists $D: R\ra k$ such that $D|_\frm=\lambda$. First we have $R/\frm^2=k\oplus \frm/\frm^2$. Let $\tilde{D}: R/\frm^2\ra k$ defined by $\tilde{D}(a+x)=\lambda(x)$ where $a\in k$ and $x\in \frm/\frm^2$. Then define $D: R\ra R/\frm^2\xr{\tilde{D}}k$. $D$ is a derivation by computing directly.
+\end{proof}
+Now use the lemma $(\ref{lem:H})$ and the definition $R$ is regular if and only if $\dim_k(\frm/\frm^2)=\dim R$.
+\end{proof}
+
+
+\section{Formal Smoothness}
+Recall that "topological ring" means a ring $A$ with a topology in which the powers of an ideal $I\su A$ gives a system of neighborhoods of $0$. $I$ is called the ideal of definition. If $(A,\frm)$ is local, $\frm$ is the ideal of definition.
+
+\begin{definition}
+$A$ is a topological ring, $M$ an $A$-module. $M$ is discrete if there exists $n\geq 1$such that $I^n\cdot M=(0)$.
+\end{definition}
+
+\begin{definition}
+A topological ring $A$ is complete and separated if $A\cong \lim\limits_{\substack{\longleftarrow\\ n}}A/I^n$.
+\end{definition}
+In general, the completion $\hat{A}$ of $A$ is $\hat{A}=\lim\limits_{\substack{\longleftarrow\\ n}}A/I^n$.
+
+\begin{definition}
+Let $k,A$ be two topological rings. $\phi: k\ra A$ is a continuous ring homomorphism. We say that $A$ is formally smooth over $k$ if we have for any discrete ring $C$ with an ideal $N\su C$ with $N^2=0$, and for any continuous homomorphism $u: k\ra C$ and $v\ra C/N$, we have a lift $\tilde{v}: A\ra C$ such that the following diagram commutes:
+
+\begin{center}
+\begin{tikzcd}
+&A\arrow[r, "v"]\arrow[dr, dotted, "\tilde{v}"] & C/N\\
+&k\arrow[u, "\phi"]\arrow[r, "u"]&C\arrow[u, twoheadrightarrow]
+\end{tikzcd}
+\end{center}
+\end{definition}
+
+\textbf{Remark: }Such a $\tilde{v}$ is automotically continuous. Note that $v$ is continuous and $C/N$ is discrete,
+\begin{align*}
+&\Ra \text{ there exists } n>>0, \text{ such that } v(I^n)=0 \text{ in }C/N\\
+&\Ra \tilde{v}(I^n)=0\pmod{N}\\
+&\Ra \tilde{v}(I^{2n})=0 \text{ in }C \text{ since }N^2=0\\
+&\Ra \tilde{v} \text{ is continuous}.
+\end{align*}
+
+\begin{definition}
+If a ring homomorphism $\phi: k\ra A$ is formally smooth with $k,A$ having the discrete topology, we say that $\phi$ is smooth.
+\end{definition}
+\textbf{Remark: }
+\begin{enumerate}
+\item $\phi$ is smooth implies that $A$ is formally smooth over $k$ for any topology on $k,A$ that makes $\phi$ continuous.
+\item $\phi$ is formally smooth if and only if the extension property works for all $C,N$ with $N^m=0$ for some $m>1$.
+\item In fact, we get lifts to any complete and separated ring $C$ for a topology given by the power of $N$, i.e. $N\su C$, $C=\lim\limits_{\substack{\longleftarrow\\ n}}C/I^n$.
+    \begin{proof}
+    First there exists $\tilde{v}: A\ra A/\frm^2$ such that the following diagram commutes:
+
+    \begin{center}
+    \begin{tikzcd}
+&A\arrow[r, "id"]\arrow[dr, dotted, "\tilde{v}"] & C/N\\
+&k\arrow[u, "\phi"]\arrow[r, "u"]&C/N^2\arrow[u, twoheadrightarrow]
+\end{tikzcd}
+\end{center}
+Repeat this progress, replace $C$ by $C/N^3$, we get $\tilde{v}: A\ra C/N^3$. Hence we get a lift $v: K\ra \lim\limits_{\substack{\longleftarrow\\ n}}C/N^n=C$
+    \end{proof}
+\item Suppose $A$ is a Noetherian $k$-algebra with $I$-adic topology for some $I\su A$. $\hat{A}=\lim\limits_{\substack{\longleftarrow\\ n}}A/I^n$ is also a topology ring with ideal of definition $I\hat{A}\su\hat{A}$. If $A$ is formally smooth over $k$ then $\hat{A}$ is formally smooth over $k$.
+    \begin{proof}
+    Since $C$ is discrete and $u,v$ are continuous, there exists $m\geq 1$ such that $v((I\hat{A})^m)=0$. Hence $v(I^m\hat{A})=0$ since $A$ is Noetherian. So $v$ factors through $\hat{A}/I^m\hat{A}$, i.e. we have the following diagram:
+
+    \begin{center}
+    \begin{tikzcd}
+&\hat{A}/I^m\hat{A}\arrow[r, "v"] & C/N\\
+&k\arrow[u, "\phi"]\arrow[r, "u"]&C/N^2\arrow[u, twoheadrightarrow]
+\end{tikzcd}
+    \end{center}
+    But we have $\hat{A}/I^m\hat{A}\cong A/I^m$. So we get
+
+    \begin{center}
+    \begin{tikzcd}
+&A\arrow[r]\arrow[drr, dotted, "\tilde{v}"] &A/I^m\arrow[r, "v"]\arrow[dr, dotted] & C/N\\
+& &k\arrow[ul]\arrow[u, "\phi"]\arrow[r, "u"]&C\arrow[u, twoheadrightarrow]
+\end{tikzcd}
+    \end{center}
+    Hence $A$ is formally smooth over $k$ $\Ra$ there exists $\tilde{v}: A\ra C$ $\tilde{v}$ factors through $A/I^m$ $\Ra$ there exists $\tilde{v}: \hat{A}\ra C$.
+    \end{proof}
+\end{enumerate}
+
+More property about formally smooth:
+\begin{enumerate}
+\item \textbf{Transitivity: }Let $k\ra A\ra B$ be ring homomorphisms. If $k\ra A$ and $A\ra B$ are formally smooth, then $k\ra B$ is formally smooth.
+\item \textbf{Localization: }Let $A$ be a topological ring, $S\su A$ is a multiplicative subset. Then $A\ra S\inv A$ is formally smooth.
+\item \textbf{Base Change: }Let $k\ra A$, $k\ra k'$ be two topological ring homomorphisms. Consider $A\otimes_kk'$ with the topology induced from $A$ and $k'$. If $k\ra A$ is formally smooth, then $k'\ra A\otimes_kk'$ is formally smooth.
+\end{enumerate}
+
+\textbf{Relation with differentials: }
+\begin{lem}
+Let $k\ra A$ be a continuous ring homomorphism of topological rings ($I$ is the ideal of definition in $A$). If $k\ra A$ is formally smooth, then $\Omega_{A/k}^1\otimes_AA/I^n$ is a projective $A/I^n$ -module for all $n\geq 1$.
+\end{lem}
+\begin{proof}
+Set $J=I^n$. $\Omega_{A/k}^1\otimes_kA/J$ is $A/J$-projective $\Leftrightarrow$ we can lift $\phi$ to $\psi$,
+\begin{tikzcd}
+&L\arrow[r, "\phi"] & M\arrow[r] &0\\
+& &\Omega_{A/k}^1\otimes_kA/J\arrow[lu, dotted]\arrow[u, "\psi"]&
+\end{tikzcd}.
+
+Hence it is enough to show that $\Hom_{A/J}(\Omega_{A/k}^1\otimes_AA/J,L)\ra \Hom_{A/J}(\Omega_{A/k}^1\otimes_AA/J,M)$ is surjective. Moreover, we have
+\[\Hom_{A/J}(\Omega_{A/k}^1\otimes_AA/J,L)=\Hom_A(\Omega_{A/k}^1,L)=\Der_k(A,L).\]
+and
+\[\Hom_{A/J}(\Omega_{A/k}^1\otimes_AA/J,M)=\Hom_A(\Omega_{A/k}^1,M)=\Der_k(A,M).\]
+Consider the trivial extension of $A/J$ by $M$, $A/J\oplus M$ is a ring under the operation $(a,m)(a',m')=(aa',am'+a'm)$. Let $C=A/J\oplus L$, $id\oplus \phi: A/J\oplus L\ra A/J\oplus M$ and $N=\ker(id\oplus\phi)$. Then $N^2=0$  and $C/N=A/J\oplus M$. We have the following diagram
+
+\begin{center}
+\begin{tikzcd}
+&A\arrow[r, "v"] & A/J\oplus M \\
+&k\arrow[r, "u"]\arrow[u] & A/J\oplus L\arrow[u, "id\oplus\phi"']
+\end{tikzcd}
+\end{center}
+where $v(a)=(a\pmod{J}, D(a))$.
+Since $A$ is formally smooth over $k$, there exists $\tilde{v}: A\ra A/J\oplus L$ such that $(id\oplus \phi)\tilde{v}=v$. Write $\tilde{v}(a)=(a\pmod{J}, D'(a))$, then $D': A\ra A/L$ is a derivation such that $\phi\circ D'=D$.
+\end{proof}
+
+\textbf{exercise: }Let $A$ be a Noetherian local ring, $\frm\su A$ the maximal ideal of $A$. $M$ is a finitely generated $A$-module. If $M\otimes_AA/\frm^n$ are projective $A/\frm^n$-module for all $n\geq 1$, then $M$ is $A$-free.
+
+\begin{thm}[Cohen Structure Theorem]
+Let $A$ be a complete separated local ring which contains a field $k\hookrightarrow A$, $\frm$ its maximal ideal. $K=A/\frm$. Then $A$ contains a coefficient fields, i.e. there exists a field $L\hookrightarrow A$ such that
+\begin{tikzcd}
+&L\arrow[rrr, bend right] \arrow[r, hookrightarrow]&A\arrow[r] &A/\frm\arrow[r, equal] &K
+\end{tikzcd}
+\end{thm}
+\begin{cor}
+Let $A$ be a complete separated local ring which contains a field and which is Noetherian and regular, $k\hookrightarrow A$, $\frm$ its maximal ideal. $K=A/\frm$. Then $A\cong k[[x_1,\cdots,x_d]]$ for some $d$.
+\end{cor}
+\begin{proof}
+\textbf{Step 1: }Assume in addition that $K/k$ $(k\hookrightarrow A\ra A/\frm=K)$ is "abstractly separable". Then show actually that $A$ contains a coefficient field $L$ with $k\su L$.
+\begin{definition}
+$K/k$ a field extension is "abstractly separable" if for any algebraic extension $k'/k$, the ring $K\otimes_kk'$ is reduced.
+\end{definition}
+Recall that if $K/k$ is separably generated then $K/k$ is abstractly separable.
+This step will follow from
+\begin{thm}
+If $K/k$ is abstractly separable, then $k\ra K$ is formally smooth.
+\end{thm}
+\end{proof}
+
+\textbf{Application of Cohen's structure theorem: }
+1).Let $(A,\frm,K)$ be a complete separable local ring containing a field such that $\frm$ is a finitely generated ideal. Then $A\cong K[[x_1,\cdots,x_d]]/I$ for some ideal $I$, in particular, $A$ is Noetherian.
+\begin{proof}
+Let $\frm=(a_1,\cdots,a_d)$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
